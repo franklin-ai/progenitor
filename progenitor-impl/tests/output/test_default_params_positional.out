@@ -2,9 +2,14 @@
 use progenitor_client::{encode_path, RequestBuilderExt};
 pub use progenitor_client::{ByteStream, Error, ResponseValue};
 pub mod types {
+    #[allow(unused_imports)]
+    use fake::{Dummy, Fake};
+    #[allow(unused_imports)]
+    use rand;
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use std::convert::TryFrom;
+    use utoipa::ToSchema;
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct BodyWithDefaults {
         #[serde(rename = "forty-two", default = "defaults::default_u64::<u32, 42>")]

@@ -12,6 +12,8 @@ base64 = "0.20"
 rand = "0.8"
 serde = { version = "1.0", features = ["derive"] }
 uuid = { version = "1.2", features = ["serde", "v4"] }
+utoipa = { version = "2.2", default-features=false, features = ["actix_extras"] }
+fake = { version = "2.5", features = ["derive", "chrono", "uuid"] }
 
 [build-dependencies]
 progenitor = { path = "../progenitor" }

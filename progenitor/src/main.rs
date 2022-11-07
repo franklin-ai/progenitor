@@ -86,7 +86,10 @@ fn main() -> Result<()> {
     let mut builder = Generator::new(
         GenerationSettings::default()
             .with_interface(args.interface.into())
-            .with_tag(args.tags.into()),
+            .with_tag(args.tags.into())
+            .with_derive("ToSchema")
+            .with_derive("Dummy")
+            .with_derive("PartialEq")
     );
 
     match builder.generate_text(&api) {

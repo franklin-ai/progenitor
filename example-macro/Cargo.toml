@@ -11,3 +11,6 @@ reqwest = { version = "0.11.13", features = ["json", "stream"] }
 schemars = { version = "0.8.11", features = ["uuid1"] }
 serde = { version = "1.0", features = ["derive"] }
 uuid = { version = "1.2", features = ["serde", "v4"] }
+utoipa = { version = "2.2", default-features=false, features = ["actix_extras"] }
+fake = { version = "2.5", features = ["derive", "chrono", "uuid"] }
+rand = "0.8"

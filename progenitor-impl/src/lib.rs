@@ -269,6 +269,13 @@ impl Generator {
                 #[allow(unused_imports)]
                 use std::convert::TryFrom;
 
+                // These are custom traits explicitly added with .with_derive()
+                use utoipa::ToSchema;
+                #[allow(unused_imports)]
+                use fake::{Dummy, Fake};
+                #[allow(unused_imports)]
+                use rand;
+
                 #types
             }
 
@@ -474,6 +481,9 @@ impl Generator {
             "reqwest = { version = \"0.11.12\", default-features=false, features = [\"json\", \"stream\"] }",
             "serde = { version = \"1.0\", features = [\"derive\"] }",
             "serde_urlencoded = \"0.7\"",
+            "utoipa = { version = \"2.2\", default-features=false, features = [\"actix_extras\"] }",
+            "fake = { version = \"2.5\", features = [\"derive\", \"chrono\", \"uuid\"] }",
+            "rand = \"0.8\"",
         ];
         if self.type_space.uses_regress() {
             deps.push("regress = \"0.4\"")
