@@ -92,6 +92,7 @@ fn main() -> Result<()> {
             .with_interface(args.interface.into())
             .with_tag(args.tags.into())
             .with_derive("ToSchema")
+            .with_derive("Dummy")
             .with_derive("PartialEq"),
     );
 

@@ -235,6 +235,8 @@ impl Generator {
                 // This may be used by some impl Deserialize, but not all.
                 #[allow(unused_imports)]
                 use std::convert::TryFrom;
+                #[allow(unused_imports)]
+                use fake::{Dummy, Fake};
 
                 #types
             }
@@ -448,6 +450,8 @@ impl Generator {
             "serde = { version = \"1.0\", features = [\"derive\"] }",
             "serde_urlencoded = \"0.7\"",
             "utoipa = { version = \"2.2\", default-features=false, features = [\"actix_extras\"] }",
+            "fake = { version = \"2.5\", features = [\"derive\", \"chrono\", \"uuid\"] }",
+            "rand = \"0.8\"",
         ];
         if self.type_space.uses_regress() {
             deps.push("regress = \"0.4\"")
