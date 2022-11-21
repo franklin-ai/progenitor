@@ -43,7 +43,7 @@ pub struct Generator {
     uses_websockets: bool,
 }
 
-#[derive(Default, Clone)]
+#[derive(Clone, Default)]
 pub struct GenerationSettings {
     interface: InterfaceStyle,
     tag: TagStyle,
@@ -53,6 +53,7 @@ pub struct GenerationSettings {
     extra_derives: Vec<String>,
     patch: HashMap<String, TypePatch>,
     convert: Vec<(schemars::schema::SchemaObject, String, Vec<String>)>,
+    client_version: Option<String>,
 }
 
 #[derive(Clone, Deserialize, PartialEq, Eq)]
@@ -135,6 +136,11 @@ impl GenerationSettings {
             type_name.to_string(),
             impls.map(|x| x.to_string()).collect(),
         ));
+        self
+    }
+
+    pub fn use_client(&mut self, client_version: String) -> &mut Self {
+        self.client_version = Some(client_version);
         self
     }
 }
@@ -255,13 +261,23 @@ impl Generator {
             }
         });
 
-        let file = quote! {
-            // Re-export ResponseValue and Error since those are used by the
-            // public interface of Client.
-            pub use progenitor_client::{ByteStream, Error, ResponseValue};
-            #[allow(unused_imports)]
-            use progenitor_client::{encode_path, RequestBuilderExt};
-
+        let mut file = match self.settings.client_version {
+            None => quote! {
+                // Re-export ResponseValue and Error since those are used by the
+                // public interface of Client.
+                pub use progenitor_client::{ByteStream, Error, ResponseValue};
+                #[allow(unused_imports)]
+                use progenitor_client::{encode_path, RequestBuilderExt};
+            },
+            Some(_) => quote! {
+                // Re-export ResponseValue and Error since those are used by the
+                // public interface of Client.
+                pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
+                #[allow(unused_imports)]
+                use crate::progenitor_client::{encode_path, RequestBuilderExt};
+            },
+        };
+        file.extend(quote! {
             pub mod types {
                 use serde::{Deserialize, Serialize};
 
@@ -315,7 +331,7 @@ impl Generator {
             }
 
             #operation_code
-        };
+        });
 
         Ok(file)
     }
@@ -475,6 +491,15 @@ impl Generator {
             "serde = { version = \"1.0\", features = [\"derive\"] }",
             "serde_urlencoded = \"0.7\"",
         ];
+        let client_version_dep: String;
+        match &self.settings.client_version {
+            Some(version) => {
+                client_version_dep =
+                    format!("progenitor-client = \"{}\"", version);
+                deps.push(&client_version_dep);
+            }
+            None => {}
+        };
         if self.type_space.uses_regress() {
             deps.push("regress = \"0.4\"")
         }

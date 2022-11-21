@@ -10,6 +10,17 @@ use anyhow::{bail, Result};
 use clap::{Parser, ValueEnum};
 use openapiv3::OpenAPI;
 use progenitor::{GenerationSettings, Generator, InterfaceStyle, TagStyle};
+use quote::quote;
+
+pub mod built_info {
+    // The file has been placed there by the build script.
+    include!(concat!(env!("OUT_DIR"), "/built.rs"));
+}
+
+/// Determine if current version is a pre-release or was built from a git-repo
+fn release_is_unstable() -> bool {
+    !built_info::PKG_VERSION_PRE.is_empty() || built_info::GIT_VERSION.is_some()
+}
 
 #[derive(Parser)]
 struct Args {
@@ -32,6 +43,9 @@ struct Args {
     /// SDK tag style
     #[clap(value_enum, long, default_value_t = TagArg::Merged)]
     tags: TagArg,
+    /// Include client
+    #[clap(default_value = match release_is_unstable() { true => "true", false => "false" }, long, action = clap::ArgAction::Set)]
+    include_client: Option<bool>,
 }
 
 #[derive(Copy, Clone, ValueEnum)]
@@ -82,9 +96,24 @@ where
 fn main() -> Result<()> {
     let args = Args::parse();
     let api = load_api(&args.input)?;
+    let include_client = match args.include_client {
+        Some(true) => true,
+        Some(false) => false,
+        None => true,
+    };
+
+    let mut settings = GenerationSettings::default();
+
+    if !include_client {
+        if release_is_unstable() {
+            settings.use_client("*".to_string());
+        } else {
+            settings.use_client(built_info::PKG_VERSION.to_string());
+        }
+    }
 
     let mut builder = Generator::new(
-        GenerationSettings::default()
+        settings
             .with_interface(args.interface.into())
             .with_tag(args.tags.into()),
     );
@@ -152,10 +181,17 @@ fn main() -> Result<()> {
             /*
              * Create the Rust source file containing the support code:
              */
-            let progenitor_client_code = progenitor_client::code();
+            let progenitor_client_code = match include_client {
+                true => progenitor_client::code().to_string(),
+                false => quote! {
+                    pub use progenitor_client::{
+                        ByteStream, ResponseValue, Error, RequestBuilderExt, encode_path
+                    };
+                }.to_string(),
+            };
             let mut clientrs = src;
             clientrs.push("progenitor_client.rs");
-            save(clientrs, progenitor_client_code)?;
+            save(clientrs, &progenitor_client_code)?;
         }
 
         Err(e) => {
