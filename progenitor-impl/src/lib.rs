@@ -43,7 +43,7 @@ pub struct Generator {
     uses_websockets: bool,
 }
 
-#[derive(Default, Clone)]
+#[derive(Clone)]
 pub struct GenerationSettings {
     interface: InterfaceStyle,
     tag: TagStyle,
@@ -52,6 +52,22 @@ pub struct GenerationSettings {
     post_hook: Option<TokenStream>,
     extra_derives: Vec<String>,
     patch: HashMap<String, TypePatch>,
+    transclude: bool,
+}
+
+impl Default for GenerationSettings {
+    fn default() -> GenerationSettings {
+        GenerationSettings {
+            interface: Default::default(),
+            tag: Default::default(),
+            inner_type: Default::default(),
+            pre_hook: Default::default(),
+            post_hook: Default::default(),
+            extra_derives: Default::default(),
+            patch: Default::default(),
+            transclude: true,
+        }
+    }
 }
 
 #[derive(Clone, Deserialize, PartialEq, Eq)]
@@ -120,6 +136,11 @@ impl GenerationSettings {
     ) -> &mut Self {
         self.patch
             .insert(type_name.as_ref().to_string(), patch.clone());
+        self
+    }
+
+    pub fn with_transclude(&mut self, transclude: bool) -> &mut Self {
+        self.transclude = transclude;
         self
     }
 }
@@ -231,13 +252,23 @@ impl Generator {
             }
         });
 
-        let file = quote! {
-            // Re-export ResponseValue and Error since those are used by the
-            // public interface of Client.
-            pub use progenitor_client::{ByteStream, Error, ResponseValue};
-            #[allow(unused_imports)]
-            use progenitor_client::{encode_path, RequestBuilderExt};
-
+        let mut file = match self.settings.transclude {
+            true => quote! {
+                // Re-export ResponseValue and Error since those are used by the
+                // public interface of Client.
+                pub use progenitor_client::{ByteStream, Error, ResponseValue};
+                #[allow(unused_imports)]
+                use progenitor_client::{encode_path, RequestBuilderExt};
+            },
+            false => quote! {
+                // Re-export ResponseValue and Error since those are used by the
+                // public interface of Client.
+                pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
+                #[allow(unused_imports)]
+                use crate::progenitor_client::{encode_path, RequestBuilderExt};
+            },
+        };
+        file.extend(quote! {
             pub mod types {
                 use serde::{Deserialize, Serialize};
 
@@ -291,7 +322,7 @@ impl Generator {
             }
 
             #operation_code
-        };
+        });
 
         Ok(file)
     }
@@ -451,6 +482,9 @@ impl Generator {
             "serde = { version = \"1.0\", features = [\"derive\"] }",
             "serde_urlencoded = \"0.7\"",
         ];
+        if !self.settings.transclude {
+            deps.push("progenitor-client = \"*\"");
+        }
         if self.type_space.uses_regress() {
             deps.push("regress = \"0.4\"")
         }
