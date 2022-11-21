@@ -11,6 +11,7 @@ use anyhow::{bail, Result};
 use clap::{Parser, ValueEnum};
 use openapiv3::OpenAPI;
 use progenitor::{GenerationSettings, Generator, InterfaceStyle, TagStyle};
+use quote::quote;
 
 #[derive(Parser)]
 struct Args {
@@ -33,6 +34,9 @@ struct Args {
     /// SDK tag style
     #[clap(value_enum, long, default_value_t = TagArg::Merged)]
     tags: TagArg,
+    /// Transclude client
+    #[clap(default_value = "true", long, action = clap::ArgAction::Set)]
+    transclude: Option<bool>,
 }
 
 #[derive(Copy, Clone, ValueEnum)]
@@ -83,9 +87,15 @@ where
 fn main() -> Result<()> {
     let args = Args::parse();
     let api = load_api(&args.input)?;
+    let transclude = match args.transclude {
+        Some(true) => true,
+        Some(false) => false,
+        None => true,
+    };
 
     let mut builder = Generator::new(
         GenerationSettings::default()
+            .with_transclude(transclude)
             .with_interface(args.interface.into())
             .with_tag(args.tags.into()),
     );
@@ -153,10 +163,17 @@ fn main() -> Result<()> {
             /*
              * Create the Rust source file containing the support code:
              */
-            let progenitor_client_code = progenitor_client::code();
+            let progenitor_client_code = match transclude {
+                true => progenitor_client::code().to_string(),
+                false => quote! {
+                    pub use progenitor_client::{
+                        ByteStream, ResponseValue, Error, RequestBuilderExt, encode_path
+                    };
+                }.to_string(),
+            };
             let mut clientrs = src;
             clientrs.push("progenitor_client.rs");
-            save(clientrs, progenitor_client_code)?;
+            save(clientrs, &progenitor_client_code)?;
         }
 
         Err(e) => {
