@@ -475,6 +475,7 @@ impl Generator {
 
     pub fn dependencies(&self) -> Vec<String> {
         let mut deps = vec![
+            "ros-models = { workspace = true }",
             "bytes = \"1.1\"",
             "futures-core = \"0.3\"",
             "percent-encoding = \"2.1\"",
