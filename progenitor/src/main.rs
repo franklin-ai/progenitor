@@ -27,6 +27,9 @@ struct Args {
     /// Target Rust crate version
     #[clap(short = 'v', long)]
     version: String,
+    /// Target Rust crate repository
+    #[clap(long)]
+    repository_name: String,
 
     /// SDK interface style
     #[clap(value_enum, long, default_value_t = InterfaceArg::Positional)]
@@ -116,6 +119,7 @@ fn main() -> Result<()> {
 
             let name = &args.name;
             let version = &args.version;
+            let repository_name = &args.repository_name;
 
             /*
              * Create the top-level crate directory:
@@ -134,12 +138,15 @@ fn main() -> Result<()> {
                 name = \"{}\"\n\
                 version = \"{}\"\n\
                 edition = \"2021\"\n\
+                publish = [\"{}\"]\n\
+                license = \"UNLICENSED\"\n\
                 \n\
                 [dependencies]\n\
                 {}\n\
                 \n",
                 name,
                 version,
+                repository_name,
                 builder.dependencies().join("\n"),
             );
 
