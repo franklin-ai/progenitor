@@ -488,7 +488,7 @@ impl Generator {
             "serde_urlencoded = \"0.7\"",
         ];
         if !self.settings.transclude {
-            deps.push("progenitor-client = \"*\"");
+            deps.push("progenitor-client = { git = \"https://github.com/franklin-ai/progenitor/\", branch =\"ros-enhancements-client\" }");
         }
         if self.type_space.uses_regress() {
             deps.push("regress = \"0.4\"")
