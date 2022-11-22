@@ -19,6 +19,7 @@ serde_yaml = "0.9"
 clap = { version = "4.0.25", features = ["derive"] }
 
 [dev-dependencies]
+reqwest-middleware = "0.2.0"
 base64 = "0.13"
 chrono = { version = "0.4", features = ["serde"] }
 futures = "0.3.25"
