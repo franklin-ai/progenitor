@@ -53,6 +53,7 @@ pub struct GenerationSettings {
     extra_derives: Vec<String>,
     patch: HashMap<String, TypePatch>,
     transclude: bool,
+    use_ros_models: bool,
 }
 
 impl Default for GenerationSettings {
@@ -66,6 +67,7 @@ impl Default for GenerationSettings {
             extra_derives: Default::default(),
             patch: Default::default(),
             transclude: true,
+            use_ros_models: true,
         }
     }
 }
@@ -141,6 +143,11 @@ impl GenerationSettings {
 
     pub fn with_transclude(&mut self, transclude: bool) -> &mut Self {
         self.transclude = transclude;
+        self
+    }
+
+    pub fn with_ros_models(&mut self, use_ros_models: bool) -> &mut Self {
+        self.use_ros_models = use_ros_models;
         self
     }
 }
@@ -234,7 +241,7 @@ impl Generator {
             }
         }?;
 
-        let types = self.type_space.to_stream();
+        let types = self.type_space.to_stream(self.settings.use_ros_models);
 
         let inner_property = self.settings.inner_type.as_ref().map(|inner| {
             quote! {

@@ -40,6 +40,8 @@ struct Args {
     /// Transclude client
     #[clap(default_value = "true", long, action = clap::ArgAction::Set)]
     transclude: Option<bool>,
+    #[clap(default_value = "true", long, action = clap::ArgAction::Set)]
+    use_ros_models: Option<bool>,
 }
 
 #[derive(Copy, Clone, ValueEnum)]
@@ -95,10 +97,16 @@ fn main() -> Result<()> {
         Some(false) => false,
         None => true,
     };
+    let use_ros_models = match args.use_ros_models {
+        Some(true) => true,
+        Some(false) => false,
+        None => true,
+    };
 
     let mut builder = Generator::new(
         GenerationSettings::default()
             .with_transclude(transclude)
+            .with_ros_models(use_ros_models)
             .with_interface(args.interface.into())
             .with_tag(args.tags.into()),
     );
