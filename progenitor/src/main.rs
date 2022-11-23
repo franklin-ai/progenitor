@@ -50,6 +50,8 @@ struct Args {
     /// Include client
     #[clap(default_value = match release_is_unstable() { true => "true", false => "false" }, long, action = clap::ArgAction::Set)]
     include_client: Option<bool>,
+    #[clap(default_value = "true", long, action = clap::ArgAction::Set)]
+    use_ros_models: Option<bool>,
 }
 
 #[derive(Copy, Clone, ValueEnum)]
@@ -105,6 +107,11 @@ fn main() -> Result<()> {
         Some(false) => false,
         None => true,
     };
+    let use_ros_models = match args.use_ros_models {
+        Some(true) => true,
+        Some(false) => false,
+        None => true,
+    };
 
     let mut settings = GenerationSettings::default();
 
@@ -118,6 +125,7 @@ fn main() -> Result<()> {
 
     let mut builder = Generator::new(
         settings
+            .with_ros_models(use_ros_models)
             .with_interface(args.interface.into())
             .with_tag(args.tags.into())
             .with_derive("ToSchema")

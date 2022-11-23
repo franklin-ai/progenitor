@@ -54,6 +54,7 @@ pub struct GenerationSettings {
     patch: HashMap<String, TypePatch>,
     convert: Vec<(schemars::schema::SchemaObject, String, Vec<String>)>,
     client_version: Option<String>,
+    use_ros_models: bool,
 }
 
 #[derive(Clone, Deserialize, PartialEq, Eq)]
@@ -141,6 +142,11 @@ impl GenerationSettings {
 
     pub fn use_client(&mut self, client_version: String) -> &mut Self {
         self.client_version = Some(client_version);
+        self
+    }
+
+    pub fn with_ros_models(&mut self, use_ros_models: bool) -> &mut Self {
+        self.use_ros_models = use_ros_models;
         self
     }
 }
@@ -243,7 +249,7 @@ impl Generator {
             }
         }?;
 
-        let types = self.type_space.to_stream();
+        let types = self.type_space.to_stream(self.settings.use_ros_models);
 
         let inner_property = self.settings.inner_type.as_ref().map(|inner| {
             quote! {

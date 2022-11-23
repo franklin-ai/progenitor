@@ -378,6 +378,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "eq-float"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c02b5d1d1e6ba431b960d4bf971c8b0e2d2942b8cbc577d9bdf9c60fca5d41d"
+
+[[package]]
 name = "errno"
 version = "0.2.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2064,7 +2070,6 @@ checksum = "dcf81ac59edc17cc8697ff311e8f5ef2d99fcbd9817b34cec66f90b6c3dfd987"
 [[package]]
 name = "typify"
 version = "0.0.11-dev"
-source = "git+https://github.com/oxidecomputer/typify#da0505b0b43180ee85d8df2a7c2504acb7ce01e0"
 dependencies = [
  "typify-impl",
  "typify-macro",
@@ -2073,8 +2078,8 @@ dependencies = [
 [[package]]
 name = "typify-impl"
 version = "0.0.11-dev"
-source = "git+https://github.com/oxidecomputer/typify#da0505b0b43180ee85d8df2a7c2504acb7ce01e0"
 dependencies = [
+ "eq-float",
  "heck",
  "log",
  "proc-macro2",
@@ -2091,7 +2096,6 @@ dependencies = [
 [[package]]
 name = "typify-macro"
 version = "0.0.11-dev"
-source = "git+https://github.com/oxidecomputer/typify#da0505b0b43180ee85d8df2a7c2504acb7ce01e0"
 dependencies = [
  "proc-macro2",
  "quote",
