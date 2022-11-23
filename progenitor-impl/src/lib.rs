@@ -276,6 +276,9 @@ impl Generator {
             },
         };
         file.extend(quote! {
+            #[allow(unused_imports)]
+            use reqwest::header::{HeaderMap, HeaderValue};
+            
             pub mod types {
                 use serde::{Deserialize, Serialize};
 
@@ -383,6 +386,8 @@ impl Generator {
                     encode_path,
                     ByteStream,
                     Error,
+                    HeaderMap,
+                    HeaderValue,
                     RequestBuilderExt,
                     ResponseValue,
                 };
@@ -420,6 +425,8 @@ impl Generator {
                     encode_path,
                     ByteStream,
                     Error,
+                    HeaderMap,
+                    HeaderValue,
                     RequestBuilderExt,
                     ResponseValue,
                 };

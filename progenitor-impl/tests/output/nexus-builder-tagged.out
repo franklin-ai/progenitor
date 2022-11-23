@@ -1,6 +1,8 @@
 #[allow(unused_imports)]
 use progenitor_client::{encode_path, RequestBuilderExt};
 pub use progenitor_client::{ByteStream, Error, ResponseValue};
+#[allow(unused_imports)]
+use reqwest::header::{HeaderMap, HeaderValue};
 pub mod types {
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
@@ -13679,7 +13681,9 @@ impl ClientVpcsExt for Client {
 pub mod builder {
     use super::types;
     #[allow(unused_imports)]
-    use super::{encode_path, ByteStream, Error, RequestBuilderExt, ResponseValue};
+    use super::{
+        encode_path, ByteStream, Error, HeaderMap, HeaderValue, RequestBuilderExt, ResponseValue,
+    };
     ///Builder for [`ClientDisksExt::disk_view_by_id`]
     ///
     ///[`ClientDisksExt::disk_view_by_id`]: super::ClientDisksExt::disk_view_by_id
@@ -14505,7 +14509,7 @@ pub mod builder {
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
             let url = format!("{}/hardware/racks", client.baseurl,);
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -14696,7 +14700,7 @@ pub mod builder {
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
             let url = format!("{}/hardware/sleds", client.baseurl,);
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -14887,7 +14891,7 @@ pub mod builder {
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
             let url = format!("{}/images", client.baseurl,);
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -15178,7 +15182,7 @@ pub mod builder {
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
             let url = format!("{}/ip-pools", client.baseurl,);
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -15542,7 +15546,7 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&pool_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(2usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -16034,7 +16038,7 @@ pub mod builder {
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
             let url = format!("{}/organizations", client.baseurl,);
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -16547,7 +16551,7 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -17018,7 +17022,7 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -17492,7 +17496,7 @@ pub mod builder {
                 encode_path(&disk_name.to_string()),
                 encode_path(&metric_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(4usize);
             if let Some(v) = &end_time {
                 query.push(("end_time", v.to_string()));
             }
@@ -17671,7 +17675,7 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -18105,7 +18109,7 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -18556,7 +18560,7 @@ pub mod builder {
                 encode_path(&project_name.to_string()),
                 encode_path(&instance_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -19140,7 +19144,7 @@ pub mod builder {
                 encode_path(&project_name.to_string()),
                 encode_path(&instance_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -19847,7 +19851,7 @@ pub mod builder {
                 encode_path(&project_name.to_string()),
                 encode_path(&instance_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &from_start {
                 query.push(("from_start", v.to_string()));
             }
@@ -20308,7 +20312,7 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -20743,7 +20747,7 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -21485,7 +21489,7 @@ pub mod builder {
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -22112,7 +22116,7 @@ pub mod builder {
                 encode_path(&vpc_name.to_string()),
                 encode_path(&router_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -22784,7 +22788,7 @@ pub mod builder {
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -23412,7 +23416,7 @@ pub mod builder {
                 encode_path(&vpc_name.to_string()),
                 encode_path(&subnet_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -23624,7 +23628,7 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let url = format!("{}/roles", client.baseurl,);
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(2usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -23811,7 +23815,7 @@ pub mod builder {
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
             let url = format!("{}/sagas", client.baseurl,);
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -24035,7 +24039,7 @@ pub mod builder {
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
             let url = format!("{}/session/me/sshkeys", client.baseurl,);
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -24332,7 +24336,7 @@ pub mod builder {
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
             let url = format!("{}/silos", client.baseurl,);
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -24642,7 +24646,7 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&silo_name.to_string()),
             );
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -25051,7 +25055,7 @@ pub mod builder {
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
             let url = format!("{}/system/user", client.baseurl,);
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -25229,7 +25233,7 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let url = format!("{}/timeseries/schema", client.baseurl,);
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(2usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }
@@ -25397,7 +25401,7 @@ pub mod builder {
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
             let url = format!("{}/users", client.baseurl,);
-            let mut query = Vec::new();
+            let mut query = Vec::with_capacity(3usize);
             if let Some(v) = &limit {
                 query.push(("limit", v.to_string()));
             }

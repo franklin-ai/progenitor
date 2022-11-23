@@ -298,6 +298,12 @@ impl<E> From<reqwest_middleware::Error> for Error<E> {
     }
 }
 
+impl<E> From<reqwest::header::InvalidHeaderValue> for Error<E> {
+    fn from(e: reqwest::header::InvalidHeaderValue) -> Self {
+        Self::InvalidRequest(e.to_string())
+    }
+}
+
 impl<E> std::fmt::Display for Error<E>
 where
     ResponseValue<E>: ErrorFormat,
