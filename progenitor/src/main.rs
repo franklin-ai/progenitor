@@ -19,12 +19,15 @@ struct Args {
     /// Output directory for Rust crate
     #[clap(short = 'o', long)]
     output: String,
+    /// Emit Cargo.toml
+    #[clap(long, default_value="false")]
+    output_cargo_toml: bool,
     /// Target Rust crate name
     #[clap(short = 'n', long)]
-    name: String,
+    name: Option<String>,
     /// Target Rust crate version
     #[clap(short = 'v', long)]
-    version: String,
+    version: Option<String>,
 
     /// SDK interface style
     #[clap(value_enum, long, default_value_t = InterfaceArg::Positional)]
@@ -103,36 +106,37 @@ fn main() -> Result<()> {
             println!("-----------------------------------------------------");
             println!();
 
-            let name = &args.name;
-            let version = &args.version;
-
             /*
              * Create the top-level crate directory:
              */
             let root = PathBuf::from(&args.output);
             std::fs::create_dir_all(&root)?;
 
-            /*
-             * Write the Cargo.toml file:
-             */
-            let mut toml = root.clone();
-            toml.push("Cargo.toml");
+            if args.output_cargo_toml {
+                /*
+                * Write the Cargo.toml file:
+                */
+                let name = &args.name.unwrap();
+                let version = &args.version.unwrap();
+                let mut toml = root.clone();
+                toml.push("Cargo.toml");
 
-            let tomlout = format!(
-                "[package]\n\
-                name = \"{}\"\n\
-                version = \"{}\"\n\
-                edition = \"2021\"\n\
-                \n\
-                [dependencies]\n\
-                {}\n\
-                \n",
-                name,
-                version,
-                builder.dependencies().join("\n"),
-            );
+                let tomlout = format!(
+                    "[package]\n\
+                    name = \"{}\"\n\
+                    version = \"{}\"\n\
+                    edition = \"2021\"\n\
+                    \n\
+                    [dependencies]\n\
+                    {}\n\
+                    \n",
+                    name,
+                    version,
+                    builder.dependencies().join("\n"),
+                );
 
-            save(&toml, tomlout.as_str())?;
+                save(&toml, tomlout.as_str())?;
+            }
 
             /*
              * Create the src/ directory:
