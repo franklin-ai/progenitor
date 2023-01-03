@@ -277,7 +277,7 @@ impl Generator {
             #[derive(Clone, Debug)]
             pub struct Client {
                 pub(crate) baseurl: String,
-                pub(crate) client: reqwest::Client,
+                pub(crate) client: reqwest_middleware::ClientWithMiddleware,
                 #inner_property
             }
 
@@ -287,17 +287,20 @@ impl Generator {
                     #inner_parameter
                 ) -> Self {
                     let dur = std::time::Duration::from_secs(15);
-                    let client = reqwest::ClientBuilder::new()
-                        .connect_timeout(dur)
-                        .timeout(dur)
-                        .build()
-                        .unwrap();
+                    let client = reqwest_middleware::ClientBuilder::new(
+                        reqwest::ClientBuilder::new()
+                            .connect_timeout(dur)
+                            .timeout(dur)
+                            .build()
+                            .unwrap()
+                    )
+                        .build();
                     Self::new_with_client(baseurl, client, #inner_value)
                 }
 
                 pub fn new_with_client(
                     baseurl: &str,
-                    client: reqwest::Client,
+                    client: reqwest_middleware::ClientWithMiddleware,
                     #inner_parameter
                 ) -> Self {
                     Self {
@@ -311,7 +314,7 @@ impl Generator {
                     &self.baseurl
                 }
 
-                pub fn client(&self) -> &reqwest::Client {
+                pub fn client(&self) -> &reqwest_middleware::ClientWithMiddleware {
                     &self.client
                 }
             }
@@ -478,6 +481,7 @@ impl Generator {
             "futures-core = \"0.3\"",
             "percent-encoding = \"2.1\"",
             "reqwest = { version = \"0.11.12\", default-features=false, features = [\"json\", \"stream\"] }",
+            "reqwest-middleware = \"0.2.0\"",
             "serde = { version = \"1.0\", features = [\"derive\"] }",
             "serde_urlencoded = \"0.7\"",
         ];
