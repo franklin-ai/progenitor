@@ -167,3 +167,19 @@ fn test_default_params() {
         &output,
     );
 }
+
+/// Test using progenitor-client from crates.io
+#[test]
+fn test_with_client_version() {
+    let mut api = ApiDescription::new();
+    api.register(default_params).unwrap();
+
+    let generator = Generator::new(
+        GenerationSettings::default().use_client("*".to_string()),
+    );
+    let output = generator.dependencies().join("\n");
+    expectorate::assert_contents(
+        format!("tests/output/{}.deps", "test_client_version_star"),
+        &output,
+    );
+}
