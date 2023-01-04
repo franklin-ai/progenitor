@@ -2,6 +2,7 @@
 
 use std::{
     fs::{File, OpenOptions},
+    io::Read,
     io::Write,
     path::{Path, PathBuf},
 };
@@ -171,7 +172,18 @@ pub fn load_api<P>(p: P) -> Result<OpenAPI>
 where
     P: AsRef<Path>,
 {
-    let f = File::open(p)?;
-    let api = serde_json::from_reader(f)?;
+    let mut f = File::open(p)?;
+
+    let mut buf = [b' '];
+    while buf[0].is_ascii_whitespace() {
+        f.read_exact(&mut buf)?;
+    }
+    let reader = buf.as_ref().chain(f);
+
+    let api = if buf[0] == b'{' {
+        serde_json::from_reader(reader)?
+    } else {
+        serde_yaml::from_reader(reader)?
+    };
     Ok(api)
 }
