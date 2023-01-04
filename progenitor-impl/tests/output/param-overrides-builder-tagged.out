@@ -4,9 +4,14 @@ pub use progenitor_client::{ByteStream, Error, ResponseValue};
 #[allow(unused_imports)]
 use reqwest::header::{HeaderMap, HeaderValue};
 pub mod types {
+    #[allow(unused_imports)]
+    use fake::{Dummy, Fake};
+    #[allow(unused_imports)]
+    use rand;
     use serde::{Deserialize, Serialize};
     #[allow(unused_imports)]
     use std::convert::TryFrom;
+    use utoipa::ToSchema;
 }
 
 #[derive(Clone, Debug)]

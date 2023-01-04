@@ -287,6 +287,13 @@ impl Generator {
                 #[allow(unused_imports)]
                 use std::convert::TryFrom;
 
+                // These are custom traits explicitly added with .with_derive()
+                use utoipa::ToSchema;
+                #[allow(unused_imports)]
+                use fake::{Dummy, Fake};
+                #[allow(unused_imports)]
+                use rand;
+
                 #types
             }
 
@@ -500,6 +507,9 @@ impl Generator {
             "reqwest-middleware = \"0.2.0\"",
             "serde = { version = \"1.0\", features = [\"derive\"] }",
             "serde_urlencoded = \"0.7\"",
+            "utoipa = { version = \"2.2\", default-features=false, features = [\"actix_extras\"] }",
+            "fake = { version = \"2.5\", features = [\"derive\", \"chrono\", \"uuid\"] }",
+            "rand = \"0.8\"",
         ];
         let client_version_dep: String;
         match &self.settings.client_version {

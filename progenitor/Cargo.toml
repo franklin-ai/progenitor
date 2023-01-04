@@ -36,3 +36,5 @@ reqwest = { version = "0.11.13", features = ["json", "stream"] }
 reqwest-middleware = "0.2.0"
 schemars = { version = "0.8.11", features = ["uuid1"] }
 uuid = { version = "1.2", features = ["serde", "v4"] }
+utoipa = { version = "2.2", default-features=false, features = ["actix_extras"] }
+fake = { version = "2.5", features = ["derive", "chrono", "uuid"] }
