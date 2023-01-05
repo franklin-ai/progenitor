@@ -55,6 +55,7 @@ pub struct GenerationSettings {
     convert: Vec<(schemars::schema::SchemaObject, String, Vec<String>)>,
     client_version: Option<String>,
     use_ros_models: bool,
+    models_only: bool,
 }
 
 #[derive(Clone, Deserialize, PartialEq, Eq)]
@@ -147,6 +148,11 @@ impl GenerationSettings {
 
     pub fn with_ros_models(&mut self, use_ros_models: bool) -> &mut Self {
         self.use_ros_models = use_ros_models;
+        self
+    }
+
+    pub fn with_models_only(&mut self, models_only: bool) -> &mut Self {
+        self.models_only = models_only;
         self
     }
 }
@@ -267,25 +273,36 @@ impl Generator {
             }
         });
 
-        let mut file = match self.settings.client_version {
-            None => quote! {
-                // Re-export ResponseValue and Error since those are used by the
-                // public interface of Client.
-                pub use progenitor_client::{ByteStream, Error, ResponseValue};
+        let mut file = TokenStream::new();
+        if !self.settings.models_only {
+            file = match self.settings.client_version {
+                None => quote! {
+                    // Re-export ResponseValue and Error since those are used by the
+                    // public interface of Client.
+                    pub use progenitor_client::{ByteStream, Error, ResponseValue};
+                    #[allow(unused_imports)]
+                    use progenitor_client::{encode_path, RequestBuilderExt};
+                },
+                Some(_) => quote! {
+                    // Re-export ResponseValue and Error since those are used by the
+                    // public interface of Client.
+                    pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
+                    #[allow(unused_imports)]
+                    use crate::progenitor_client::{encode_path, RequestBuilderExt};
+                },
+            };
+        }
+        let mut custom_use = TokenStream::new();
+        if !self.settings.use_ros_models {
+            custom_use = quote! {
+                use utoipa::ToSchema;
                 #[allow(unused_imports)]
-                use progenitor_client::{encode_path, RequestBuilderExt};
-            },
-            Some(_) => quote! {
-                // Re-export ResponseValue and Error since those are used by the
-                // public interface of Client.
-                pub use crate::progenitor_client::{ByteStream, Error, ResponseValue};
+                use fake::{Dummy, Fake};
                 #[allow(unused_imports)]
-                use crate::progenitor_client::{encode_path, RequestBuilderExt};
-            },
-        };
+                use rand;
+            };
+        }
         file.extend(quote! {
-            #[allow(unused_imports)]
-            use reqwest::header::{HeaderMap, HeaderValue};
             pub mod types {
                 use serde::{Deserialize, Serialize};
 
@@ -294,62 +311,64 @@ impl Generator {
                 use std::convert::TryFrom;
 
                 // These are custom traits explicitly added with .with_derive()
-                use utoipa::ToSchema;
-                #[allow(unused_imports)]
-                use fake::{Dummy, Fake};
-                #[allow(unused_imports)]
-                use rand;
+                #custom_use
 
                 #types
             }
+        });
+        if !self.settings.models_only {
+            file.extend(quote! {
+                #[allow(unused_imports)]
+                use reqwest::header::{HeaderMap, HeaderValue};
 
-            #[derive(Clone, Debug)]
-            pub struct Client {
-                pub(crate) baseurl: String,
-                pub(crate) client: reqwest_middleware::ClientWithMiddleware,
-                #inner_property
-            }
-
-            impl Client {
-                pub fn new(
-                    baseurl: &str,
-                    #inner_parameter
-                ) -> Self {
-                    let dur = std::time::Duration::from_secs(15);
-                    let client = reqwest_middleware::ClientBuilder::new(
-                        reqwest::ClientBuilder::new()
-                            .connect_timeout(dur)
-                            .timeout(dur)
-                            .build()
-                            .unwrap()
-                    )
-                        .build();
-                    Self::new_with_client(baseurl, client, #inner_value)
+                #[derive(Clone, Debug)]
+                pub struct Client {
+                    pub(crate) baseurl: String,
+                    pub(crate) client: reqwest_middleware::ClientWithMiddleware,
+                    #inner_property
                 }
 
-                pub fn new_with_client(
-                    baseurl: &str,
-                    client: reqwest_middleware::ClientWithMiddleware,
-                    #inner_parameter
-                ) -> Self {
-                    Self {
-                        baseurl: baseurl.to_string(),
-                        client,
-                        #inner_value
+                impl Client {
+                    pub fn new(
+                        baseurl: &str,
+                        #inner_parameter
+                    ) -> Self {
+                        let dur = std::time::Duration::from_secs(15);
+                        let client = reqwest_middleware::ClientBuilder::new(
+                            reqwest::ClientBuilder::new()
+                                .connect_timeout(dur)
+                                .timeout(dur)
+                                .build()
+                                .unwrap()
+                        )
+                            .build();
+                        Self::new_with_client(baseurl, client, #inner_value)
+                    }
+
+                    pub fn new_with_client(
+                        baseurl: &str,
+                        client: reqwest_middleware::ClientWithMiddleware,
+                        #inner_parameter
+                    ) -> Self {
+                        Self {
+                            baseurl: baseurl.to_string(),
+                            client,
+                            #inner_value
+                        }
+                    }
+
+                    pub fn baseurl(&self) -> &String {
+                        &self.baseurl
+                    }
+
+                    pub fn client(&self) -> &reqwest_middleware::ClientWithMiddleware {
+                        &self.client
                     }
                 }
 
-                pub fn baseurl(&self) -> &String {
-                    &self.baseurl
-                }
-
-                pub fn client(&self) -> &reqwest_middleware::ClientWithMiddleware {
-                    &self.client
-                }
-            }
-
-            #operation_code
-        });
+                #operation_code
+            });
+        }
 
         Ok(file)
     }

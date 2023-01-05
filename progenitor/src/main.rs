@@ -32,7 +32,7 @@ struct Args {
     #[clap(short = 'o', long)]
     output: String,
     /// Emit Cargo.toml
-    #[clap(long, default_value="false")]
+    #[clap(long, default_value = "false")]
     output_cargo_toml: bool,
     /// Target Rust crate name
     #[clap(short = 'n', long)]
@@ -52,6 +52,9 @@ struct Args {
     include_client: Option<bool>,
     #[clap(default_value = "true", long, action = clap::ArgAction::Set)]
     use_ros_models: Option<bool>,
+    /// Only emit models
+    #[clap(default_value = "false", long, action = clap::ArgAction::Set)]
+    models_only: bool,
 }
 
 #[derive(Copy, Clone, ValueEnum)]
@@ -126,11 +129,12 @@ fn main() -> Result<()> {
     let mut builder = Generator::new(
         settings
             .with_ros_models(use_ros_models)
+            .with_models_only(args.models_only)
             .with_interface(args.interface.into())
             .with_tag(args.tags.into())
             .with_derive("ToSchema")
             .with_derive("Dummy")
-            .with_derive("PartialEq")
+            .with_derive("PartialEq"),
     );
 
     match builder.generate_text(&api) {
@@ -155,8 +159,8 @@ fn main() -> Result<()> {
 
             if args.output_cargo_toml {
                 /*
-                * Write the Cargo.toml file:
-                */
+                 * Write the Cargo.toml file:
+                 */
                 let name = &args.name.unwrap();
                 let version = &args.version.unwrap();
                 let mut toml = root.clone();
@@ -189,25 +193,32 @@ fn main() -> Result<()> {
             /*
              * Create the Rust source file containing the generated client:
              */
-            let lib_code = format!("mod progenitor_client;\n\n{}", api_code);
+            let mut lib_code = String::new();
+            if !args.models_only {
+                lib_code.extend("mod progenitor_client;\n\n".chars());
+            }
+            lib_code.extend(api_code.chars());
+
             let mut librs = src.clone();
             librs.push("lib.rs");
             save(librs, lib_code.as_str())?;
 
-            /*
-             * Create the Rust source file containing the support code:
-             */
-            let progenitor_client_code = match include_client {
-                true => progenitor_client::code().to_string(),
-                false => quote! {
-                    pub use progenitor_client::{
-                        ByteStream, ResponseValue, Error, RequestBuilderExt, encode_path
-                    };
-                }.to_string(),
-            };
-            let mut clientrs = src;
-            clientrs.push("progenitor_client.rs");
-            save(clientrs, &progenitor_client_code)?;
+            if !args.models_only {
+                /*
+                 * Create the Rust source file containing the support code:
+                 */
+                let progenitor_client_code = match include_client {
+                    true => progenitor_client::code().to_string(),
+                    false => quote! {
+                        pub use progenitor_client::{
+                            ByteStream, ResponseValue, Error, RequestBuilderExt, encode_path
+                        };
+                    }.to_string(),
+                };
+                let mut clientrs = src;
+                clientrs.push("progenitor_client.rs");
+                save(clientrs, &progenitor_client_code)?;
+            }
         }
 
         Err(e) => {
