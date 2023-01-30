@@ -418,6 +418,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ee2626afccd7561a06cf1367e2950c4718ea04565e20fb5029b6c7d8ad09abcf"
 
 [[package]]
+name = "educe"
+version = "0.4.20"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cb0188e3c3ba8df5753894d54461f0e39bc91741dc5b22e1c46999ec2c71f4e4"
+dependencies = [
+ "enum-ordinalize",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "encode_unicode"
 version = "0.3.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -430,6 +442,20 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7896dc8abb250ffdda33912550faa54c88ec8b998dec0b2c55ab224921ce11df"
 dependencies = [
  "cfg-if",
+]
+
+[[package]]
+name = "enum-ordinalize"
+version = "3.1.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a62bb1df8b45ecb7ffa78dca1c17a438fb193eb083db0b1b494d2a61bcb5096a"
+dependencies = [
+ "num-bigint",
+ "num-traits",
+ "proc-macro2",
+ "quote",
+ "rustc_version",
+ "syn",
 ]
 
 [[package]]
@@ -1071,6 +1097,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d6f81c2b19eebbc4249b3ca6aff70ae05bf18d6a99b7cc63cf0248774e640565"
 
 [[package]]
+name = "num-bigint"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f93ab6289c7b344a8a9f60f88d80aa20032336fe78da341afc91c8a2341fc75f"
+dependencies = [
+ "autocfg",
+ "num-integer",
+ "num-traits",
+]
+
+[[package]]
 name = "num-integer"
 version = "0.1.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1508,6 +1545,15 @@ dependencies = [
  "untrusted",
  "web-sys",
  "winapi",
+]
+
+[[package]]
+name = "rustc_version"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bfa0f585226d2e68097d4f95d113b15b83a82e819ab25717ec0590d9584ef366"
+dependencies = [
+ "semver 1.0.16",
 ]
 
 [[package]]
@@ -2165,6 +2211,7 @@ checksum = "dcf81ac59edc17cc8697ff311e8f5ef2d99fcbd9817b34cec66f90b6c3dfd987"
 [[package]]
 name = "typify"
 version = "0.0.11-dev"
+source = "git+https://github.com/franklin-ai/typify?branch=ros-enhancements-combined-rebased#4168f96979ba1069dfee843355a80285fe10db8f"
 dependencies = [
  "typify-impl",
  "typify-macro",
@@ -2173,6 +2220,7 @@ dependencies = [
 [[package]]
 name = "typify-impl"
 version = "0.0.11-dev"
+source = "git+https://github.com/franklin-ai/typify?branch=ros-enhancements-combined-rebased#4168f96979ba1069dfee843355a80285fe10db8f"
 dependencies = [
  "eq-float",
  "heck",
@@ -2191,7 +2239,9 @@ dependencies = [
 [[package]]
 name = "typify-macro"
 version = "0.0.11-dev"
+source = "git+https://github.com/franklin-ai/typify?branch=ros-enhancements-combined-rebased#4168f96979ba1069dfee843355a80285fe10db8f"
 dependencies = [
+ "educe",
  "proc-macro2",
  "quote",
  "schemars",

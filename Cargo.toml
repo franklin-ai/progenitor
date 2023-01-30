@@ -13,7 +13,7 @@ members = [
 
 [patch."https://github.com/oxidecomputer/typify"]
 #typify = { path = "../typify/typify" }
-typify = { git = "https://github.com/franklin-ai/typify", branch="ros-enhancements-combined" }
+typify = { git = "https://github.com/franklin-ai/typify", branch="ros-enhancements-combined-rebased" }
 
 #[patch.crates-io]
 #serde_tokenstream = { path = "../serde_tokenstream" }
