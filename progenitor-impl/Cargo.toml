@@ -23,7 +23,7 @@ syn = { version = "1.0", features = ["parsing"] }
 thiserror = "1.0"
 # To publish, use a numbered version
 #typify = "0.0.10"
-typify = { git = "https://github.com/oxidecomputer/typify" }
+typify = { git = "https://github.com/franklin-ai/typify", branch="ros-enhancements-combined-rebased" }
 unicode-ident = "1.0.6"
 
 [dev-dependencies]
