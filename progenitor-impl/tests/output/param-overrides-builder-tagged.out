@@ -8,7 +8,6 @@ pub mod types {
     #[allow(unused_imports)]
     use std::convert::TryFrom;
 }
-
 #[derive(Clone, Debug)]
 ///Client for Parameter override test
 ///
@@ -19,7 +18,6 @@ pub struct Client {
     pub(crate) baseurl: String,
     pub(crate) client: reqwest::Client,
 }
-
 impl Client {
     /// Create a new client.
     ///
@@ -35,7 +33,6 @@ impl Client {
             .unwrap();
         Self::new_with_client(baseurl, client)
     }
-
     /// Construct a new client with an existing `reqwest::Client`,
     /// allowing more control over its configuration.
     ///
@@ -48,17 +45,14 @@ impl Client {
             client,
         }
     }
-
     /// Get the base URL to which requests are made.
     pub fn baseurl(&self) -> &String {
         &self.baseurl
     }
-
     /// Get the internal `reqwest::Client` used to make requests.
     pub fn client(&self) -> &reqwest::Client {
         &self.client
     }
-
     /// Get the version of this API.
     ///
     /// This string is pulled directly from the source OpenAPI
@@ -67,7 +61,6 @@ impl Client {
         "v1"
     }
 }
-
 impl Client {
     ///Gets a key
     ///
@@ -89,7 +82,6 @@ impl Client {
         builder::KeyGet::new(self)
     }
 }
-
 pub mod builder {
     use super::types;
     #[allow(unused_imports)]
@@ -105,7 +97,6 @@ pub mod builder {
         key: Result<Option<bool>, String>,
         unique_key: Result<Option<String>, String>,
     }
-
     impl<'a> KeyGet<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -114,7 +105,6 @@ pub mod builder {
                 unique_key: Ok(None),
             }
         }
-
         pub fn key<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<bool>,
@@ -125,7 +115,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `bool` for key failed".to_string());
             self
         }
-
         pub fn unique_key<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -136,7 +125,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for unique_key failed".to_string());
             self
         }
-
         ///Sends a `GET` request to `/key`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<()>> {
             let Self {
@@ -164,7 +152,6 @@ pub mod builder {
         }
     }
 }
-
 pub mod prelude {
     pub use super::Client;
 }

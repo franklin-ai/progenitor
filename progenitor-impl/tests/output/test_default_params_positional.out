@@ -17,13 +17,11 @@ pub mod types {
         #[serde(default)]
         pub yes: bool,
     }
-
     impl From<&BodyWithDefaults> for BodyWithDefaults {
         fn from(value: &BodyWithDefaults) -> Self {
             value.clone()
         }
     }
-
     ///Error information from a response.
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct Error {
@@ -32,13 +30,11 @@ pub mod types {
         pub message: String,
         pub request_id: String,
     }
-
     impl From<&Error> for Error {
         fn from(value: &Error) -> Self {
             value.clone()
         }
     }
-
     pub mod defaults {
         pub(super) fn default_u64<T, const V: u64>() -> T
         where
@@ -47,13 +43,11 @@ pub mod types {
         {
             T::try_from(V).unwrap()
         }
-
         pub(super) fn body_with_defaults_something() -> Option<bool> {
             Some(true)
         }
     }
 }
-
 #[derive(Clone, Debug)]
 ///Client for pagination-demo
 ///
@@ -62,7 +56,6 @@ pub struct Client {
     pub(crate) baseurl: String,
     pub(crate) client: reqwest::Client,
 }
-
 impl Client {
     /// Create a new client.
     ///
@@ -78,7 +71,6 @@ impl Client {
             .unwrap();
         Self::new_with_client(baseurl, client)
     }
-
     /// Construct a new client with an existing `reqwest::Client`,
     /// allowing more control over its configuration.
     ///
@@ -91,17 +83,14 @@ impl Client {
             client,
         }
     }
-
     /// Get the base URL to which requests are made.
     pub fn baseurl(&self) -> &String {
         &self.baseurl
     }
-
     /// Get the internal `reqwest::Client` used to make requests.
     pub fn client(&self) -> &reqwest::Client {
         &self.client
     }
-
     /// Get the version of this API.
     ///
     /// This string is pulled directly from the source OpenAPI
@@ -110,7 +99,6 @@ impl Client {
         "9000"
     }
 }
-
 impl Client {
     ///Sends a `POST` request to `/`
     pub async fn default_params<'a>(
@@ -127,7 +115,6 @@ impl Client {
         }
     }
 }
-
 pub mod prelude {
     pub use super::Client;
 }

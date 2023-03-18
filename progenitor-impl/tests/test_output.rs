@@ -26,6 +26,16 @@ where
     }
 }
 
+fn generate_formatted(generator: &mut Generator, spec: &OpenAPI) -> String {
+    let content = generator.generate_tokens(&spec).unwrap();
+    let rustfmt_config = rustfmt_wrapper::config::Config {
+        normalize_doc_attributes: Some(true),
+        wrap_comments: Some(true),
+        ..Default::default()
+    };
+    rustfmt_wrapper::rustfmt_config(rustfmt_config, content).unwrap()
+}
+
 #[track_caller]
 fn verify_apis(openapi_file: &str) {
     let mut in_path = PathBuf::from("../sample_openapi");
@@ -36,7 +46,7 @@ fn verify_apis(openapi_file: &str) {
 
     // Positional generation.
     let mut generator = Generator::default();
-    let output = generator.generate_text_normalize_comments(&spec).unwrap();
+    let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/{}-positional.out", openapi_stem),
         &output,
@@ -61,7 +71,7 @@ fn verify_apis(openapi_file: &str) {
                 [TypeImpl::Display].into_iter(),
             ),
     );
-    let output = generator.generate_text_normalize_comments(&spec).unwrap();
+    let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/{}-builder.out", openapi_stem),
         &output,
@@ -73,7 +83,7 @@ fn verify_apis(openapi_file: &str) {
             .with_interface(InterfaceStyle::Builder)
             .with_tag(TagStyle::Separate),
     );
-    let output = generator.generate_text_normalize_comments(&spec).unwrap();
+    let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/{}-builder-tagged.out", openapi_stem),
         &output,

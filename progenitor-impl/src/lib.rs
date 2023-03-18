@@ -505,41 +505,19 @@ impl Generator {
 
     /// Render text output.
     pub fn generate_text(&mut self, spec: &OpenAPI) -> Result<String> {
-        self.generate_text_impl(
-            spec,
-            rustfmt_wrapper::config::Config::default(),
-        )
+        self.generate_text_impl(spec)
     }
 
     /// Render text output and normalize doc comments
-    ///
-    /// Requires a nightly install of `rustfmt` (even if the target project is
-    /// not using nightly).
     pub fn generate_text_normalize_comments(
         &mut self,
         spec: &OpenAPI,
     ) -> Result<String> {
-        self.generate_text_impl(
-            spec,
-            rustfmt_wrapper::config::Config {
-                normalize_doc_attributes: Some(true),
-                wrap_comments: Some(true),
-                ..Default::default()
-            },
-        )
+        self.generate_text_impl(spec)
     }
 
-    fn generate_text_impl(
-        &mut self,
-        spec: &OpenAPI,
-        config: rustfmt_wrapper::config::Config,
-    ) -> Result<String> {
-        let output = self.generate_tokens(spec)?;
-
-        // Format the file with rustfmt.
-        let content = rustfmt_wrapper::rustfmt_config(config, output).unwrap();
-
-        space_out_items(content)
+    fn generate_text_impl(&mut self, spec: &OpenAPI) -> Result<String> {
+        space_out_items(self.generate_tokens(spec)?.to_string())
     }
 
     // TODO deprecate?

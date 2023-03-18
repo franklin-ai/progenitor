@@ -12,73 +12,61 @@ pub mod types {
         pub host: String,
         pub key: String,
     }
-
     impl From<&EnrolBody> for EnrolBody {
         fn from(value: &EnrolBody) -> Self {
             value.clone()
         }
     }
-
     impl EnrolBody {
         pub fn builder() -> builder::EnrolBody {
             builder::EnrolBody::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct GlobalJobsResult {
         pub summary: Vec<ReportSummary>,
     }
-
     impl From<&GlobalJobsResult> for GlobalJobsResult {
         fn from(value: &GlobalJobsResult) -> Self {
             value.clone()
         }
     }
-
     impl GlobalJobsResult {
         pub fn builder() -> builder::GlobalJobsResult {
             builder::GlobalJobsResult::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct OutputRecord {
         pub msg: String,
         pub stream: String,
         pub time: chrono::DateTime<chrono::offset::Utc>,
     }
-
     impl From<&OutputRecord> for OutputRecord {
         fn from(value: &OutputRecord) -> Self {
             value.clone()
         }
     }
-
     impl OutputRecord {
         pub fn builder() -> builder::OutputRecord {
             builder::OutputRecord::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct PingResult {
         pub host: String,
         pub ok: bool,
     }
-
     impl From<&PingResult> for PingResult {
         fn from(value: &PingResult) -> Self {
             value.clone()
         }
     }
-
     impl PingResult {
         pub fn builder() -> builder::PingResult {
             builder::PingResult::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct ReportFinishBody {
         pub duration_millis: i32,
@@ -86,19 +74,16 @@ pub mod types {
         pub exit_status: i32,
         pub id: ReportId,
     }
-
     impl From<&ReportFinishBody> for ReportFinishBody {
         fn from(value: &ReportFinishBody) -> Self {
             value.clone()
         }
     }
-
     impl ReportFinishBody {
         pub fn builder() -> builder::ReportFinishBody {
             builder::ReportFinishBody::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct ReportId {
         pub host: String,
@@ -107,73 +92,61 @@ pub mod types {
         pub time: chrono::DateTime<chrono::offset::Utc>,
         pub uuid: String,
     }
-
     impl From<&ReportId> for ReportId {
         fn from(value: &ReportId) -> Self {
             value.clone()
         }
     }
-
     impl ReportId {
         pub fn builder() -> builder::ReportId {
             builder::ReportId::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct ReportOutputBody {
         pub id: ReportId,
         pub record: OutputRecord,
     }
-
     impl From<&ReportOutputBody> for ReportOutputBody {
         fn from(value: &ReportOutputBody) -> Self {
             value.clone()
         }
     }
-
     impl ReportOutputBody {
         pub fn builder() -> builder::ReportOutputBody {
             builder::ReportOutputBody::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct ReportResult {
         pub existed_already: bool,
     }
-
     impl From<&ReportResult> for ReportResult {
         fn from(value: &ReportResult) -> Self {
             value.clone()
         }
     }
-
     impl ReportResult {
         pub fn builder() -> builder::ReportResult {
             builder::ReportResult::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct ReportStartBody {
         pub id: ReportId,
         pub script: String,
         pub start_time: chrono::DateTime<chrono::offset::Utc>,
     }
-
     impl From<&ReportStartBody> for ReportStartBody {
         fn from(value: &ReportStartBody) -> Self {
             value.clone()
         }
     }
-
     impl ReportStartBody {
         pub fn builder() -> builder::ReportStartBody {
             builder::ReportStartBody::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct ReportSummary {
         pub age_seconds: i32,
@@ -183,26 +156,22 @@ pub mod types {
         pub status: i32,
         pub when: chrono::DateTime<chrono::offset::Utc>,
     }
-
     impl From<&ReportSummary> for ReportSummary {
         fn from(value: &ReportSummary) -> Self {
             value.clone()
         }
     }
-
     impl ReportSummary {
         pub fn builder() -> builder::ReportSummary {
             builder::ReportSummary::default()
         }
     }
-
     pub mod builder {
         #[derive(Clone, Debug)]
         pub struct EnrolBody {
             host: Result<String, String>,
             key: Result<String, String>,
         }
-
         impl Default for EnrolBody {
             fn default() -> Self {
                 Self {
@@ -211,7 +180,6 @@ pub mod types {
                 }
             }
         }
-
         impl EnrolBody {
             pub fn host<T>(mut self, value: T) -> Self
             where
@@ -234,7 +202,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<EnrolBody> for super::EnrolBody {
             type Error = String;
             fn try_from(value: EnrolBody) -> Result<Self, String> {
@@ -244,7 +211,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::EnrolBody> for EnrolBody {
             fn from(value: super::EnrolBody) -> Self {
                 Self {
@@ -253,12 +219,10 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct GlobalJobsResult {
             summary: Result<Vec<super::ReportSummary>, String>,
         }
-
         impl Default for GlobalJobsResult {
             fn default() -> Self {
                 Self {
@@ -266,7 +230,6 @@ pub mod types {
                 }
             }
         }
-
         impl GlobalJobsResult {
             pub fn summary<T>(mut self, value: T) -> Self
             where
@@ -279,7 +242,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<GlobalJobsResult> for super::GlobalJobsResult {
             type Error = String;
             fn try_from(value: GlobalJobsResult) -> Result<Self, String> {
@@ -288,7 +250,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::GlobalJobsResult> for GlobalJobsResult {
             fn from(value: super::GlobalJobsResult) -> Self {
                 Self {
@@ -296,14 +257,12 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct OutputRecord {
             msg: Result<String, String>,
             stream: Result<String, String>,
             time: Result<chrono::DateTime<chrono::offset::Utc>, String>,
         }
-
         impl Default for OutputRecord {
             fn default() -> Self {
                 Self {
@@ -313,7 +272,6 @@ pub mod types {
                 }
             }
         }
-
         impl OutputRecord {
             pub fn msg<T>(mut self, value: T) -> Self
             where
@@ -346,7 +304,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<OutputRecord> for super::OutputRecord {
             type Error = String;
             fn try_from(value: OutputRecord) -> Result<Self, String> {
@@ -357,7 +314,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::OutputRecord> for OutputRecord {
             fn from(value: super::OutputRecord) -> Self {
                 Self {
@@ -367,13 +323,11 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct PingResult {
             host: Result<String, String>,
             ok: Result<bool, String>,
         }
-
         impl Default for PingResult {
             fn default() -> Self {
                 Self {
@@ -382,7 +336,6 @@ pub mod types {
                 }
             }
         }
-
         impl PingResult {
             pub fn host<T>(mut self, value: T) -> Self
             where
@@ -405,7 +358,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<PingResult> for super::PingResult {
             type Error = String;
             fn try_from(value: PingResult) -> Result<Self, String> {
@@ -415,7 +367,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::PingResult> for PingResult {
             fn from(value: super::PingResult) -> Self {
                 Self {
@@ -424,7 +375,6 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct ReportFinishBody {
             duration_millis: Result<i32, String>,
@@ -432,7 +382,6 @@ pub mod types {
             exit_status: Result<i32, String>,
             id: Result<super::ReportId, String>,
         }
-
         impl Default for ReportFinishBody {
             fn default() -> Self {
                 Self {
@@ -443,7 +392,6 @@ pub mod types {
                 }
             }
         }
-
         impl ReportFinishBody {
             pub fn duration_millis<T>(mut self, value: T) -> Self
             where
@@ -486,7 +434,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<ReportFinishBody> for super::ReportFinishBody {
             type Error = String;
             fn try_from(value: ReportFinishBody) -> Result<Self, String> {
@@ -498,7 +445,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::ReportFinishBody> for ReportFinishBody {
             fn from(value: super::ReportFinishBody) -> Self {
                 Self {
@@ -509,7 +455,6 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct ReportId {
             host: Result<String, String>,
@@ -518,7 +463,6 @@ pub mod types {
             time: Result<chrono::DateTime<chrono::offset::Utc>, String>,
             uuid: Result<String, String>,
         }
-
         impl Default for ReportId {
             fn default() -> Self {
                 Self {
@@ -530,7 +474,6 @@ pub mod types {
                 }
             }
         }
-
         impl ReportId {
             pub fn host<T>(mut self, value: T) -> Self
             where
@@ -583,7 +526,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<ReportId> for super::ReportId {
             type Error = String;
             fn try_from(value: ReportId) -> Result<Self, String> {
@@ -596,7 +538,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::ReportId> for ReportId {
             fn from(value: super::ReportId) -> Self {
                 Self {
@@ -608,13 +549,11 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct ReportOutputBody {
             id: Result<super::ReportId, String>,
             record: Result<super::OutputRecord, String>,
         }
-
         impl Default for ReportOutputBody {
             fn default() -> Self {
                 Self {
@@ -623,7 +562,6 @@ pub mod types {
                 }
             }
         }
-
         impl ReportOutputBody {
             pub fn id<T>(mut self, value: T) -> Self
             where
@@ -646,7 +584,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<ReportOutputBody> for super::ReportOutputBody {
             type Error = String;
             fn try_from(value: ReportOutputBody) -> Result<Self, String> {
@@ -656,7 +593,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::ReportOutputBody> for ReportOutputBody {
             fn from(value: super::ReportOutputBody) -> Self {
                 Self {
@@ -665,12 +601,10 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct ReportResult {
             existed_already: Result<bool, String>,
         }
-
         impl Default for ReportResult {
             fn default() -> Self {
                 Self {
@@ -678,7 +612,6 @@ pub mod types {
                 }
             }
         }
-
         impl ReportResult {
             pub fn existed_already<T>(mut self, value: T) -> Self
             where
@@ -691,7 +624,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<ReportResult> for super::ReportResult {
             type Error = String;
             fn try_from(value: ReportResult) -> Result<Self, String> {
@@ -700,7 +632,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::ReportResult> for ReportResult {
             fn from(value: super::ReportResult) -> Self {
                 Self {
@@ -708,14 +639,12 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct ReportStartBody {
             id: Result<super::ReportId, String>,
             script: Result<String, String>,
             start_time: Result<chrono::DateTime<chrono::offset::Utc>, String>,
         }
-
         impl Default for ReportStartBody {
             fn default() -> Self {
                 Self {
@@ -725,7 +654,6 @@ pub mod types {
                 }
             }
         }
-
         impl ReportStartBody {
             pub fn id<T>(mut self, value: T) -> Self
             where
@@ -758,7 +686,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<ReportStartBody> for super::ReportStartBody {
             type Error = String;
             fn try_from(value: ReportStartBody) -> Result<Self, String> {
@@ -769,7 +696,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::ReportStartBody> for ReportStartBody {
             fn from(value: super::ReportStartBody) -> Self {
                 Self {
@@ -779,7 +705,6 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct ReportSummary {
             age_seconds: Result<i32, String>,
@@ -789,7 +714,6 @@ pub mod types {
             status: Result<i32, String>,
             when: Result<chrono::DateTime<chrono::offset::Utc>, String>,
         }
-
         impl Default for ReportSummary {
             fn default() -> Self {
                 Self {
@@ -802,7 +726,6 @@ pub mod types {
                 }
             }
         }
-
         impl ReportSummary {
             pub fn age_seconds<T>(mut self, value: T) -> Self
             where
@@ -868,7 +791,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<ReportSummary> for super::ReportSummary {
             type Error = String;
             fn try_from(value: ReportSummary) -> Result<Self, String> {
@@ -882,7 +804,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::ReportSummary> for ReportSummary {
             fn from(value: super::ReportSummary) -> Self {
                 Self {
@@ -897,7 +818,6 @@ pub mod types {
         }
     }
 }
-
 #[derive(Clone, Debug)]
 ///Client for Keeper API
 ///
@@ -908,7 +828,6 @@ pub struct Client {
     pub(crate) baseurl: String,
     pub(crate) client: reqwest::Client,
 }
-
 impl Client {
     /// Create a new client.
     ///
@@ -924,7 +843,6 @@ impl Client {
             .unwrap();
         Self::new_with_client(baseurl, client)
     }
-
     /// Construct a new client with an existing `reqwest::Client`,
     /// allowing more control over its configuration.
     ///
@@ -937,17 +855,14 @@ impl Client {
             client,
         }
     }
-
     /// Get the base URL to which requests are made.
     pub fn baseurl(&self) -> &String {
         &self.baseurl
     }
-
     /// Get the internal `reqwest::Client` used to make requests.
     pub fn client(&self) -> &reqwest::Client {
         &self.client
     }
-
     /// Get the version of this API.
     ///
     /// This string is pulled directly from the source OpenAPI
@@ -956,7 +871,6 @@ impl Client {
         "1.0"
     }
 }
-
 impl Client {
     ///Sends a `POST` request to `/enrol`
     ///
@@ -973,7 +887,6 @@ impl Client {
     pub fn enrol(&self) -> builder::Enrol {
         builder::Enrol::new(self)
     }
-
     ///Sends a `GET` request to `/global/jobs`
     ///
     ///Arguments:
@@ -987,7 +900,6 @@ impl Client {
     pub fn global_jobs(&self) -> builder::GlobalJobs {
         builder::GlobalJobs::new(self)
     }
-
     ///Sends a `GET` request to `/ping`
     ///
     ///Arguments:
@@ -1001,7 +913,6 @@ impl Client {
     pub fn ping(&self) -> builder::Ping {
         builder::Ping::new(self)
     }
-
     ///Sends a `POST` request to `/report/finish`
     ///
     ///Arguments:
@@ -1017,7 +928,6 @@ impl Client {
     pub fn report_finish(&self) -> builder::ReportFinish {
         builder::ReportFinish::new(self)
     }
-
     ///Sends a `POST` request to `/report/output`
     ///
     ///Arguments:
@@ -1033,7 +943,6 @@ impl Client {
     pub fn report_output(&self) -> builder::ReportOutput {
         builder::ReportOutput::new(self)
     }
-
     ///Sends a `POST` request to `/report/start`
     ///
     ///Arguments:
@@ -1050,7 +959,6 @@ impl Client {
         builder::ReportStart::new(self)
     }
 }
-
 pub mod builder {
     use super::types;
     #[allow(unused_imports)]
@@ -1066,7 +974,6 @@ pub mod builder {
         authorization: Result<String, String>,
         body: Result<types::builder::EnrolBody, String>,
     }
-
     impl<'a> Enrol<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -1075,7 +982,6 @@ pub mod builder {
                 body: Ok(types::builder::EnrolBody::default()),
             }
         }
-
         pub fn authorization<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -1085,7 +991,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for authorization failed".to_string());
             self
         }
-
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::EnrolBody>,
@@ -1096,7 +1001,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `EnrolBody` for body failed".to_string());
             self
         }
-
         pub fn body_map<F>(mut self, f: F) -> Self
         where
             F: std::ops::FnOnce(types::builder::EnrolBody) -> types::builder::EnrolBody,
@@ -1104,7 +1008,6 @@ pub mod builder {
             self.body = self.body.map(f);
             self
         }
-
         ///Sends a `POST` request to `/enrol`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<()>> {
             let Self {
@@ -1133,7 +1036,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::global_jobs`]
     ///
     ///[`Client::global_jobs`]: super::Client::global_jobs
@@ -1142,7 +1044,6 @@ pub mod builder {
         client: &'a super::Client,
         authorization: Result<String, String>,
     }
-
     impl<'a> GlobalJobs<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -1150,7 +1051,6 @@ pub mod builder {
                 authorization: Err("authorization was not initialized".to_string()),
             }
         }
-
         pub fn authorization<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -1160,7 +1060,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for authorization failed".to_string());
             self
         }
-
         ///Sends a `GET` request to `/global/jobs`
         pub async fn send(self) -> Result<ResponseValue<types::GlobalJobsResult>, Error<()>> {
             let Self {
@@ -1180,7 +1079,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::ping`]
     ///
     ///[`Client::ping`]: super::Client::ping
@@ -1189,7 +1087,6 @@ pub mod builder {
         client: &'a super::Client,
         authorization: Result<String, String>,
     }
-
     impl<'a> Ping<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -1197,7 +1094,6 @@ pub mod builder {
                 authorization: Err("authorization was not initialized".to_string()),
             }
         }
-
         pub fn authorization<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -1207,7 +1103,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for authorization failed".to_string());
             self
         }
-
         ///Sends a `GET` request to `/ping`
         pub async fn send(self) -> Result<ResponseValue<types::PingResult>, Error<()>> {
             let Self {
@@ -1227,7 +1122,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::report_finish`]
     ///
     ///[`Client::report_finish`]: super::Client::report_finish
@@ -1237,7 +1131,6 @@ pub mod builder {
         authorization: Result<String, String>,
         body: Result<types::builder::ReportFinishBody, String>,
     }
-
     impl<'a> ReportFinish<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -1246,7 +1139,6 @@ pub mod builder {
                 body: Ok(types::builder::ReportFinishBody::default()),
             }
         }
-
         pub fn authorization<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -1256,7 +1148,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for authorization failed".to_string());
             self
         }
-
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::ReportFinishBody>,
@@ -1267,7 +1158,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `ReportFinishBody` for body failed".to_string());
             self
         }
-
         pub fn body_map<F>(mut self, f: F) -> Self
         where
             F: std::ops::FnOnce(
@@ -1277,7 +1167,6 @@ pub mod builder {
             self.body = self.body.map(f);
             self
         }
-
         ///Sends a `POST` request to `/report/finish`
         pub async fn send(self) -> Result<ResponseValue<types::ReportResult>, Error<()>> {
             let Self {
@@ -1306,7 +1195,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::report_output`]
     ///
     ///[`Client::report_output`]: super::Client::report_output
@@ -1316,7 +1204,6 @@ pub mod builder {
         authorization: Result<String, String>,
         body: Result<types::builder::ReportOutputBody, String>,
     }
-
     impl<'a> ReportOutput<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -1325,7 +1212,6 @@ pub mod builder {
                 body: Ok(types::builder::ReportOutputBody::default()),
             }
         }
-
         pub fn authorization<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -1335,7 +1221,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for authorization failed".to_string());
             self
         }
-
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::ReportOutputBody>,
@@ -1346,7 +1231,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `ReportOutputBody` for body failed".to_string());
             self
         }
-
         pub fn body_map<F>(mut self, f: F) -> Self
         where
             F: std::ops::FnOnce(
@@ -1356,7 +1240,6 @@ pub mod builder {
             self.body = self.body.map(f);
             self
         }
-
         ///Sends a `POST` request to `/report/output`
         pub async fn send(self) -> Result<ResponseValue<types::ReportResult>, Error<()>> {
             let Self {
@@ -1385,7 +1268,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::report_start`]
     ///
     ///[`Client::report_start`]: super::Client::report_start
@@ -1395,7 +1277,6 @@ pub mod builder {
         authorization: Result<String, String>,
         body: Result<types::builder::ReportStartBody, String>,
     }
-
     impl<'a> ReportStart<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -1404,7 +1285,6 @@ pub mod builder {
                 body: Ok(types::builder::ReportStartBody::default()),
             }
         }
-
         pub fn authorization<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -1414,7 +1294,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for authorization failed".to_string());
             self
         }
-
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::ReportStartBody>,
@@ -1425,7 +1304,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `ReportStartBody` for body failed".to_string());
             self
         }
-
         pub fn body_map<F>(mut self, f: F) -> Self
         where
             F: std::ops::FnOnce(types::builder::ReportStartBody) -> types::builder::ReportStartBody,
@@ -1433,7 +1311,6 @@ pub mod builder {
             self.body = self.body.map(f);
             self
         }
-
         ///Sends a `POST` request to `/report/start`
         pub async fn send(self) -> Result<ResponseValue<types::ReportResult>, Error<()>> {
             let Self {
@@ -1463,7 +1340,6 @@ pub mod builder {
         }
     }
 }
-
 pub mod prelude {
     pub use super::Client;
 }

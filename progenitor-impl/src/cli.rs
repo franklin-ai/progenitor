@@ -30,16 +30,7 @@ impl Generator {
     ) -> Result<String> {
         let output = self.cli(spec, crate_name)?;
 
-        let content = rustfmt_wrapper::rustfmt_config(
-            rustfmt_wrapper::config::Config {
-                format_strings: Some(true),
-                ..Default::default()
-            },
-            output,
-        )
-        .unwrap();
-
-        space_out_items(content)
+        space_out_items(output.to_string())
     }
 
     pub fn cli(

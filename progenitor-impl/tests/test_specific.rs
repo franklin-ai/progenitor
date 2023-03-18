@@ -13,6 +13,16 @@ use progenitor_impl::{GenerationSettings, Generator, InterfaceStyle};
 use schemars::JsonSchema;
 use serde::Deserialize;
 
+fn generate_formatted(generator: &mut Generator, spec: &OpenAPI) -> String {
+    let content = generator.generate_tokens(&spec).unwrap();
+    let rustfmt_config = rustfmt_wrapper::config::Config {
+        normalize_doc_attributes: Some(true),
+        wrap_comments: Some(true),
+        ..Default::default()
+    };
+    rustfmt_wrapper::rustfmt_config(rustfmt_config, content).unwrap()
+}
+
 #[allow(dead_code)]
 #[derive(Deserialize, JsonSchema)]
 struct CursedPath {
@@ -65,7 +75,7 @@ fn test_renamed_parameters() {
     let spec = serde_json::from_str::<OpenAPI>(out).unwrap();
 
     let mut generator = Generator::default();
-    let output = generator.generate_text_normalize_comments(&spec).unwrap();
+    let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/{}.out", "test_renamed_parameters"),
         &output,
@@ -98,7 +108,7 @@ fn test_freeform_response() {
     let spec = serde_json::from_str::<OpenAPI>(out).unwrap();
 
     let mut generator = Generator::default();
-    let output = generator.generate_text_normalize_comments(&spec).unwrap();
+    let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/{}.out", "test_freeform_response"),
         &output,
@@ -152,7 +162,7 @@ fn test_default_params() {
     let spec = serde_json::from_str::<OpenAPI>(out).unwrap();
 
     let mut generator = Generator::default();
-    let output = generator.generate_text_normalize_comments(&spec).unwrap();
+    let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/{}.out", "test_default_params_positional"),
         &output,
@@ -161,7 +171,7 @@ fn test_default_params() {
     let mut generator = Generator::new(
         GenerationSettings::default().with_interface(InterfaceStyle::Builder),
     );
-    let output = generator.generate_text_normalize_comments(&spec).unwrap();
+    let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/{}.out", "test_default_params_builder"),
         &output,

@@ -17,19 +17,16 @@ pub mod types {
         #[serde(default)]
         pub yes: bool,
     }
-
     impl From<&BodyWithDefaults> for BodyWithDefaults {
         fn from(value: &BodyWithDefaults) -> Self {
             value.clone()
         }
     }
-
     impl BodyWithDefaults {
         pub fn builder() -> builder::BodyWithDefaults {
             builder::BodyWithDefaults::default()
         }
     }
-
     ///Error information from a response.
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct Error {
@@ -38,19 +35,16 @@ pub mod types {
         pub message: String,
         pub request_id: String,
     }
-
     impl From<&Error> for Error {
         fn from(value: &Error) -> Self {
             value.clone()
         }
     }
-
     impl Error {
         pub fn builder() -> builder::Error {
             builder::Error::default()
         }
     }
-
     pub mod builder {
         #[derive(Clone, Debug)]
         pub struct BodyWithDefaults {
@@ -59,7 +53,6 @@ pub mod types {
             something: Result<Option<bool>, String>,
             yes: Result<bool, String>,
         }
-
         impl Default for BodyWithDefaults {
             fn default() -> Self {
                 Self {
@@ -70,7 +63,6 @@ pub mod types {
                 }
             }
         }
-
         impl BodyWithDefaults {
             pub fn forty_two<T>(mut self, value: T) -> Self
             where
@@ -113,7 +105,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<BodyWithDefaults> for super::BodyWithDefaults {
             type Error = String;
             fn try_from(value: BodyWithDefaults) -> Result<Self, String> {
@@ -125,7 +116,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::BodyWithDefaults> for BodyWithDefaults {
             fn from(value: super::BodyWithDefaults) -> Self {
                 Self {
@@ -136,14 +126,12 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct Error {
             error_code: Result<Option<String>, String>,
             message: Result<String, String>,
             request_id: Result<String, String>,
         }
-
         impl Default for Error {
             fn default() -> Self {
                 Self {
@@ -153,7 +141,6 @@ pub mod types {
                 }
             }
         }
-
         impl Error {
             pub fn error_code<T>(mut self, value: T) -> Self
             where
@@ -186,7 +173,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<Error> for super::Error {
             type Error = String;
             fn try_from(value: Error) -> Result<Self, String> {
@@ -197,7 +183,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::Error> for Error {
             fn from(value: super::Error) -> Self {
                 Self {
@@ -208,7 +193,6 @@ pub mod types {
             }
         }
     }
-
     pub mod defaults {
         pub(super) fn default_u64<T, const V: u64>() -> T
         where
@@ -217,13 +201,11 @@ pub mod types {
         {
             T::try_from(V).unwrap()
         }
-
         pub(super) fn body_with_defaults_something() -> Option<bool> {
             Some(true)
         }
     }
 }
-
 #[derive(Clone, Debug)]
 ///Client for pagination-demo
 ///
@@ -232,7 +214,6 @@ pub struct Client {
     pub(crate) baseurl: String,
     pub(crate) client: reqwest::Client,
 }
-
 impl Client {
     /// Create a new client.
     ///
@@ -248,7 +229,6 @@ impl Client {
             .unwrap();
         Self::new_with_client(baseurl, client)
     }
-
     /// Construct a new client with an existing `reqwest::Client`,
     /// allowing more control over its configuration.
     ///
@@ -261,17 +241,14 @@ impl Client {
             client,
         }
     }
-
     /// Get the base URL to which requests are made.
     pub fn baseurl(&self) -> &String {
         &self.baseurl
     }
-
     /// Get the internal `reqwest::Client` used to make requests.
     pub fn client(&self) -> &reqwest::Client {
         &self.client
     }
-
     /// Get the version of this API.
     ///
     /// This string is pulled directly from the source OpenAPI
@@ -280,7 +257,6 @@ impl Client {
         "9000"
     }
 }
-
 impl Client {
     ///Sends a `POST` request to `/`
     ///
@@ -294,7 +270,6 @@ impl Client {
         builder::DefaultParams::new(self)
     }
 }
-
 pub mod builder {
     use super::types;
     #[allow(unused_imports)]
@@ -309,7 +284,6 @@ pub mod builder {
         client: &'a super::Client,
         body: Result<types::builder::BodyWithDefaults, String>,
     }
-
     impl<'a> DefaultParams<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -317,7 +291,6 @@ pub mod builder {
                 body: Ok(types::builder::BodyWithDefaults::default()),
             }
         }
-
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::BodyWithDefaults>,
@@ -328,7 +301,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `BodyWithDefaults` for body failed".to_string());
             self
         }
-
         pub fn body_map<F>(mut self, f: F) -> Self
         where
             F: std::ops::FnOnce(
@@ -338,7 +310,6 @@ pub mod builder {
             self.body = self.body.map(f);
             self
         }
-
         ///Sends a `POST` request to `/`
         pub async fn send(self) -> Result<ResponseValue<ByteStream>, Error<ByteStream>> {
             let Self { client, body } = self;
@@ -356,7 +327,6 @@ pub mod builder {
         }
     }
 }
-
 pub mod prelude {
     pub use self::super::Client;
 }

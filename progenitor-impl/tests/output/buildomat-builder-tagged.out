@@ -15,19 +15,16 @@ pub mod types {
         pub script: String,
         pub state: String,
     }
-
     impl From<&Task> for Task {
         fn from(value: &Task) -> Self {
             value.clone()
         }
     }
-
     impl Task {
         pub fn builder() -> builder::Task {
             builder::Task::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct TaskEvent {
         pub payload: String,
@@ -35,38 +32,32 @@ pub mod types {
         pub stream: String,
         pub time: chrono::DateTime<chrono::offset::Utc>,
     }
-
     impl From<&TaskEvent> for TaskEvent {
         fn from(value: &TaskEvent) -> Self {
             value.clone()
         }
     }
-
     impl TaskEvent {
         pub fn builder() -> builder::TaskEvent {
             builder::TaskEvent::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct TaskOutput {
         pub id: String,
         pub path: String,
         pub size: u64,
     }
-
     impl From<&TaskOutput> for TaskOutput {
         fn from(value: &TaskOutput) -> Self {
             value.clone()
         }
     }
-
     impl TaskOutput {
         pub fn builder() -> builder::TaskOutput {
             builder::TaskOutput::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct TaskSubmit {
         pub name: String,
@@ -74,107 +65,89 @@ pub mod types {
         pub output_rules: Vec<String>,
         pub script: String,
     }
-
     impl From<&TaskSubmit> for TaskSubmit {
         fn from(value: &TaskSubmit) -> Self {
             value.clone()
         }
     }
-
     impl TaskSubmit {
         pub fn builder() -> builder::TaskSubmit {
             builder::TaskSubmit::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct TaskSubmitResult {
         pub id: String,
     }
-
     impl From<&TaskSubmitResult> for TaskSubmitResult {
         fn from(value: &TaskSubmitResult) -> Self {
             value.clone()
         }
     }
-
     impl TaskSubmitResult {
         pub fn builder() -> builder::TaskSubmitResult {
             builder::TaskSubmitResult::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct UploadedChunk {
         pub id: String,
     }
-
     impl From<&UploadedChunk> for UploadedChunk {
         fn from(value: &UploadedChunk) -> Self {
             value.clone()
         }
     }
-
     impl UploadedChunk {
         pub fn builder() -> builder::UploadedChunk {
             builder::UploadedChunk::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct UserCreate {
         pub name: String,
     }
-
     impl From<&UserCreate> for UserCreate {
         fn from(value: &UserCreate) -> Self {
             value.clone()
         }
     }
-
     impl UserCreate {
         pub fn builder() -> builder::UserCreate {
             builder::UserCreate::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct UserCreateResult {
         pub id: String,
         pub name: String,
         pub token: String,
     }
-
     impl From<&UserCreateResult> for UserCreateResult {
         fn from(value: &UserCreateResult) -> Self {
             value.clone()
         }
     }
-
     impl UserCreateResult {
         pub fn builder() -> builder::UserCreateResult {
             builder::UserCreateResult::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct WhoamiResult {
         pub id: String,
         pub name: String,
     }
-
     impl From<&WhoamiResult> for WhoamiResult {
         fn from(value: &WhoamiResult) -> Self {
             value.clone()
         }
     }
-
     impl WhoamiResult {
         pub fn builder() -> builder::WhoamiResult {
             builder::WhoamiResult::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct Worker {
         pub deleted: bool,
@@ -186,183 +159,153 @@ pub mod types {
         pub recycle: bool,
         pub tasks: Vec<WorkerTask>,
     }
-
     impl From<&Worker> for Worker {
         fn from(value: &Worker) -> Self {
             value.clone()
         }
     }
-
     impl Worker {
         pub fn builder() -> builder::Worker {
             builder::Worker::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct WorkerAddOutput {
         pub chunks: Vec<String>,
         pub path: String,
         pub size: i64,
     }
-
     impl From<&WorkerAddOutput> for WorkerAddOutput {
         fn from(value: &WorkerAddOutput) -> Self {
             value.clone()
         }
     }
-
     impl WorkerAddOutput {
         pub fn builder() -> builder::WorkerAddOutput {
             builder::WorkerAddOutput::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct WorkerAppendTask {
         pub payload: String,
         pub stream: String,
         pub time: chrono::DateTime<chrono::offset::Utc>,
     }
-
     impl From<&WorkerAppendTask> for WorkerAppendTask {
         fn from(value: &WorkerAppendTask) -> Self {
             value.clone()
         }
     }
-
     impl WorkerAppendTask {
         pub fn builder() -> builder::WorkerAppendTask {
             builder::WorkerAppendTask::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct WorkerBootstrap {
         pub bootstrap: String,
         pub token: String,
     }
-
     impl From<&WorkerBootstrap> for WorkerBootstrap {
         fn from(value: &WorkerBootstrap) -> Self {
             value.clone()
         }
     }
-
     impl WorkerBootstrap {
         pub fn builder() -> builder::WorkerBootstrap {
             builder::WorkerBootstrap::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct WorkerBootstrapResult {
         pub id: String,
     }
-
     impl From<&WorkerBootstrapResult> for WorkerBootstrapResult {
         fn from(value: &WorkerBootstrapResult) -> Self {
             value.clone()
         }
     }
-
     impl WorkerBootstrapResult {
         pub fn builder() -> builder::WorkerBootstrapResult {
             builder::WorkerBootstrapResult::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct WorkerCompleteTask {
         pub failed: bool,
     }
-
     impl From<&WorkerCompleteTask> for WorkerCompleteTask {
         fn from(value: &WorkerCompleteTask) -> Self {
             value.clone()
         }
     }
-
     impl WorkerCompleteTask {
         pub fn builder() -> builder::WorkerCompleteTask {
             builder::WorkerCompleteTask::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct WorkerPingResult {
         pub poweroff: bool,
         #[serde(default, skip_serializing_if = "Option::is_none")]
         pub task: Option<WorkerPingTask>,
     }
-
     impl From<&WorkerPingResult> for WorkerPingResult {
         fn from(value: &WorkerPingResult) -> Self {
             value.clone()
         }
     }
-
     impl WorkerPingResult {
         pub fn builder() -> builder::WorkerPingResult {
             builder::WorkerPingResult::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct WorkerPingTask {
         pub id: String,
         pub output_rules: Vec<String>,
         pub script: String,
     }
-
     impl From<&WorkerPingTask> for WorkerPingTask {
         fn from(value: &WorkerPingTask) -> Self {
             value.clone()
         }
     }
-
     impl WorkerPingTask {
         pub fn builder() -> builder::WorkerPingTask {
             builder::WorkerPingTask::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct WorkerTask {
         pub id: String,
         pub name: String,
         pub owner: String,
     }
-
     impl From<&WorkerTask> for WorkerTask {
         fn from(value: &WorkerTask) -> Self {
             value.clone()
         }
     }
-
     impl WorkerTask {
         pub fn builder() -> builder::WorkerTask {
             builder::WorkerTask::default()
         }
     }
-
     #[derive(Clone, Debug, Deserialize, Serialize)]
     pub struct WorkersResult {
         pub workers: Vec<Worker>,
     }
-
     impl From<&WorkersResult> for WorkersResult {
         fn from(value: &WorkersResult) -> Self {
             value.clone()
         }
     }
-
     impl WorkersResult {
         pub fn builder() -> builder::WorkersResult {
             builder::WorkersResult::default()
         }
     }
-
     pub mod builder {
         #[derive(Clone, Debug)]
         pub struct Task {
@@ -372,7 +315,6 @@ pub mod types {
             script: Result<String, String>,
             state: Result<String, String>,
         }
-
         impl Default for Task {
             fn default() -> Self {
                 Self {
@@ -384,7 +326,6 @@ pub mod types {
                 }
             }
         }
-
         impl Task {
             pub fn id<T>(mut self, value: T) -> Self
             where
@@ -437,7 +378,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<Task> for super::Task {
             type Error = String;
             fn try_from(value: Task) -> Result<Self, String> {
@@ -450,7 +390,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::Task> for Task {
             fn from(value: super::Task) -> Self {
                 Self {
@@ -462,7 +401,6 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct TaskEvent {
             payload: Result<String, String>,
@@ -470,7 +408,6 @@ pub mod types {
             stream: Result<String, String>,
             time: Result<chrono::DateTime<chrono::offset::Utc>, String>,
         }
-
         impl Default for TaskEvent {
             fn default() -> Self {
                 Self {
@@ -481,7 +418,6 @@ pub mod types {
                 }
             }
         }
-
         impl TaskEvent {
             pub fn payload<T>(mut self, value: T) -> Self
             where
@@ -524,7 +460,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<TaskEvent> for super::TaskEvent {
             type Error = String;
             fn try_from(value: TaskEvent) -> Result<Self, String> {
@@ -536,7 +471,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::TaskEvent> for TaskEvent {
             fn from(value: super::TaskEvent) -> Self {
                 Self {
@@ -547,14 +481,12 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct TaskOutput {
             id: Result<String, String>,
             path: Result<String, String>,
             size: Result<u64, String>,
         }
-
         impl Default for TaskOutput {
             fn default() -> Self {
                 Self {
@@ -564,7 +496,6 @@ pub mod types {
                 }
             }
         }
-
         impl TaskOutput {
             pub fn id<T>(mut self, value: T) -> Self
             where
@@ -597,7 +528,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<TaskOutput> for super::TaskOutput {
             type Error = String;
             fn try_from(value: TaskOutput) -> Result<Self, String> {
@@ -608,7 +538,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::TaskOutput> for TaskOutput {
             fn from(value: super::TaskOutput) -> Self {
                 Self {
@@ -618,14 +547,12 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct TaskSubmit {
             name: Result<String, String>,
             output_rules: Result<Vec<String>, String>,
             script: Result<String, String>,
         }
-
         impl Default for TaskSubmit {
             fn default() -> Self {
                 Self {
@@ -635,7 +562,6 @@ pub mod types {
                 }
             }
         }
-
         impl TaskSubmit {
             pub fn name<T>(mut self, value: T) -> Self
             where
@@ -668,7 +594,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<TaskSubmit> for super::TaskSubmit {
             type Error = String;
             fn try_from(value: TaskSubmit) -> Result<Self, String> {
@@ -679,7 +604,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::TaskSubmit> for TaskSubmit {
             fn from(value: super::TaskSubmit) -> Self {
                 Self {
@@ -689,12 +613,10 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct TaskSubmitResult {
             id: Result<String, String>,
         }
-
         impl Default for TaskSubmitResult {
             fn default() -> Self {
                 Self {
@@ -702,7 +624,6 @@ pub mod types {
                 }
             }
         }
-
         impl TaskSubmitResult {
             pub fn id<T>(mut self, value: T) -> Self
             where
@@ -715,25 +636,21 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<TaskSubmitResult> for super::TaskSubmitResult {
             type Error = String;
             fn try_from(value: TaskSubmitResult) -> Result<Self, String> {
                 Ok(Self { id: value.id? })
             }
         }
-
         impl From<super::TaskSubmitResult> for TaskSubmitResult {
             fn from(value: super::TaskSubmitResult) -> Self {
                 Self { id: Ok(value.id) }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct UploadedChunk {
             id: Result<String, String>,
         }
-
         impl Default for UploadedChunk {
             fn default() -> Self {
                 Self {
@@ -741,7 +658,6 @@ pub mod types {
                 }
             }
         }
-
         impl UploadedChunk {
             pub fn id<T>(mut self, value: T) -> Self
             where
@@ -754,25 +670,21 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<UploadedChunk> for super::UploadedChunk {
             type Error = String;
             fn try_from(value: UploadedChunk) -> Result<Self, String> {
                 Ok(Self { id: value.id? })
             }
         }
-
         impl From<super::UploadedChunk> for UploadedChunk {
             fn from(value: super::UploadedChunk) -> Self {
                 Self { id: Ok(value.id) }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct UserCreate {
             name: Result<String, String>,
         }
-
         impl Default for UserCreate {
             fn default() -> Self {
                 Self {
@@ -780,7 +692,6 @@ pub mod types {
                 }
             }
         }
-
         impl UserCreate {
             pub fn name<T>(mut self, value: T) -> Self
             where
@@ -793,14 +704,12 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<UserCreate> for super::UserCreate {
             type Error = String;
             fn try_from(value: UserCreate) -> Result<Self, String> {
                 Ok(Self { name: value.name? })
             }
         }
-
         impl From<super::UserCreate> for UserCreate {
             fn from(value: super::UserCreate) -> Self {
                 Self {
@@ -808,14 +717,12 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct UserCreateResult {
             id: Result<String, String>,
             name: Result<String, String>,
             token: Result<String, String>,
         }
-
         impl Default for UserCreateResult {
             fn default() -> Self {
                 Self {
@@ -825,7 +732,6 @@ pub mod types {
                 }
             }
         }
-
         impl UserCreateResult {
             pub fn id<T>(mut self, value: T) -> Self
             where
@@ -858,7 +764,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<UserCreateResult> for super::UserCreateResult {
             type Error = String;
             fn try_from(value: UserCreateResult) -> Result<Self, String> {
@@ -869,7 +774,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::UserCreateResult> for UserCreateResult {
             fn from(value: super::UserCreateResult) -> Self {
                 Self {
@@ -879,13 +783,11 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct WhoamiResult {
             id: Result<String, String>,
             name: Result<String, String>,
         }
-
         impl Default for WhoamiResult {
             fn default() -> Self {
                 Self {
@@ -894,7 +796,6 @@ pub mod types {
                 }
             }
         }
-
         impl WhoamiResult {
             pub fn id<T>(mut self, value: T) -> Self
             where
@@ -917,7 +818,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<WhoamiResult> for super::WhoamiResult {
             type Error = String;
             fn try_from(value: WhoamiResult) -> Result<Self, String> {
@@ -927,7 +827,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::WhoamiResult> for WhoamiResult {
             fn from(value: super::WhoamiResult) -> Self {
                 Self {
@@ -936,7 +835,6 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct Worker {
             deleted: Result<bool, String>,
@@ -946,7 +844,6 @@ pub mod types {
             recycle: Result<bool, String>,
             tasks: Result<Vec<super::WorkerTask>, String>,
         }
-
         impl Default for Worker {
             fn default() -> Self {
                 Self {
@@ -959,7 +856,6 @@ pub mod types {
                 }
             }
         }
-
         impl Worker {
             pub fn deleted<T>(mut self, value: T) -> Self
             where
@@ -1022,7 +918,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<Worker> for super::Worker {
             type Error = String;
             fn try_from(value: Worker) -> Result<Self, String> {
@@ -1036,7 +931,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::Worker> for Worker {
             fn from(value: super::Worker) -> Self {
                 Self {
@@ -1049,14 +943,12 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct WorkerAddOutput {
             chunks: Result<Vec<String>, String>,
             path: Result<String, String>,
             size: Result<i64, String>,
         }
-
         impl Default for WorkerAddOutput {
             fn default() -> Self {
                 Self {
@@ -1066,7 +958,6 @@ pub mod types {
                 }
             }
         }
-
         impl WorkerAddOutput {
             pub fn chunks<T>(mut self, value: T) -> Self
             where
@@ -1099,7 +990,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<WorkerAddOutput> for super::WorkerAddOutput {
             type Error = String;
             fn try_from(value: WorkerAddOutput) -> Result<Self, String> {
@@ -1110,7 +1000,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::WorkerAddOutput> for WorkerAddOutput {
             fn from(value: super::WorkerAddOutput) -> Self {
                 Self {
@@ -1120,14 +1009,12 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct WorkerAppendTask {
             payload: Result<String, String>,
             stream: Result<String, String>,
             time: Result<chrono::DateTime<chrono::offset::Utc>, String>,
         }
-
         impl Default for WorkerAppendTask {
             fn default() -> Self {
                 Self {
@@ -1137,7 +1024,6 @@ pub mod types {
                 }
             }
         }
-
         impl WorkerAppendTask {
             pub fn payload<T>(mut self, value: T) -> Self
             where
@@ -1170,7 +1056,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<WorkerAppendTask> for super::WorkerAppendTask {
             type Error = String;
             fn try_from(value: WorkerAppendTask) -> Result<Self, String> {
@@ -1181,7 +1066,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::WorkerAppendTask> for WorkerAppendTask {
             fn from(value: super::WorkerAppendTask) -> Self {
                 Self {
@@ -1191,13 +1075,11 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct WorkerBootstrap {
             bootstrap: Result<String, String>,
             token: Result<String, String>,
         }
-
         impl Default for WorkerBootstrap {
             fn default() -> Self {
                 Self {
@@ -1206,7 +1088,6 @@ pub mod types {
                 }
             }
         }
-
         impl WorkerBootstrap {
             pub fn bootstrap<T>(mut self, value: T) -> Self
             where
@@ -1229,7 +1110,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<WorkerBootstrap> for super::WorkerBootstrap {
             type Error = String;
             fn try_from(value: WorkerBootstrap) -> Result<Self, String> {
@@ -1239,7 +1119,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::WorkerBootstrap> for WorkerBootstrap {
             fn from(value: super::WorkerBootstrap) -> Self {
                 Self {
@@ -1248,12 +1127,10 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct WorkerBootstrapResult {
             id: Result<String, String>,
         }
-
         impl Default for WorkerBootstrapResult {
             fn default() -> Self {
                 Self {
@@ -1261,7 +1138,6 @@ pub mod types {
                 }
             }
         }
-
         impl WorkerBootstrapResult {
             pub fn id<T>(mut self, value: T) -> Self
             where
@@ -1274,25 +1150,21 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<WorkerBootstrapResult> for super::WorkerBootstrapResult {
             type Error = String;
             fn try_from(value: WorkerBootstrapResult) -> Result<Self, String> {
                 Ok(Self { id: value.id? })
             }
         }
-
         impl From<super::WorkerBootstrapResult> for WorkerBootstrapResult {
             fn from(value: super::WorkerBootstrapResult) -> Self {
                 Self { id: Ok(value.id) }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct WorkerCompleteTask {
             failed: Result<bool, String>,
         }
-
         impl Default for WorkerCompleteTask {
             fn default() -> Self {
                 Self {
@@ -1300,7 +1172,6 @@ pub mod types {
                 }
             }
         }
-
         impl WorkerCompleteTask {
             pub fn failed<T>(mut self, value: T) -> Self
             where
@@ -1313,7 +1184,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<WorkerCompleteTask> for super::WorkerCompleteTask {
             type Error = String;
             fn try_from(value: WorkerCompleteTask) -> Result<Self, String> {
@@ -1322,7 +1192,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::WorkerCompleteTask> for WorkerCompleteTask {
             fn from(value: super::WorkerCompleteTask) -> Self {
                 Self {
@@ -1330,13 +1199,11 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct WorkerPingResult {
             poweroff: Result<bool, String>,
             task: Result<Option<super::WorkerPingTask>, String>,
         }
-
         impl Default for WorkerPingResult {
             fn default() -> Self {
                 Self {
@@ -1345,7 +1212,6 @@ pub mod types {
                 }
             }
         }
-
         impl WorkerPingResult {
             pub fn poweroff<T>(mut self, value: T) -> Self
             where
@@ -1368,7 +1234,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<WorkerPingResult> for super::WorkerPingResult {
             type Error = String;
             fn try_from(value: WorkerPingResult) -> Result<Self, String> {
@@ -1378,7 +1243,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::WorkerPingResult> for WorkerPingResult {
             fn from(value: super::WorkerPingResult) -> Self {
                 Self {
@@ -1387,14 +1251,12 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct WorkerPingTask {
             id: Result<String, String>,
             output_rules: Result<Vec<String>, String>,
             script: Result<String, String>,
         }
-
         impl Default for WorkerPingTask {
             fn default() -> Self {
                 Self {
@@ -1404,7 +1266,6 @@ pub mod types {
                 }
             }
         }
-
         impl WorkerPingTask {
             pub fn id<T>(mut self, value: T) -> Self
             where
@@ -1437,7 +1298,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<WorkerPingTask> for super::WorkerPingTask {
             type Error = String;
             fn try_from(value: WorkerPingTask) -> Result<Self, String> {
@@ -1448,7 +1308,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::WorkerPingTask> for WorkerPingTask {
             fn from(value: super::WorkerPingTask) -> Self {
                 Self {
@@ -1458,14 +1317,12 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct WorkerTask {
             id: Result<String, String>,
             name: Result<String, String>,
             owner: Result<String, String>,
         }
-
         impl Default for WorkerTask {
             fn default() -> Self {
                 Self {
@@ -1475,7 +1332,6 @@ pub mod types {
                 }
             }
         }
-
         impl WorkerTask {
             pub fn id<T>(mut self, value: T) -> Self
             where
@@ -1508,7 +1364,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<WorkerTask> for super::WorkerTask {
             type Error = String;
             fn try_from(value: WorkerTask) -> Result<Self, String> {
@@ -1519,7 +1374,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::WorkerTask> for WorkerTask {
             fn from(value: super::WorkerTask) -> Self {
                 Self {
@@ -1529,12 +1383,10 @@ pub mod types {
                 }
             }
         }
-
         #[derive(Clone, Debug)]
         pub struct WorkersResult {
             workers: Result<Vec<super::Worker>, String>,
         }
-
         impl Default for WorkersResult {
             fn default() -> Self {
                 Self {
@@ -1542,7 +1394,6 @@ pub mod types {
                 }
             }
         }
-
         impl WorkersResult {
             pub fn workers<T>(mut self, value: T) -> Self
             where
@@ -1555,7 +1406,6 @@ pub mod types {
                 self
             }
         }
-
         impl std::convert::TryFrom<WorkersResult> for super::WorkersResult {
             type Error = String;
             fn try_from(value: WorkersResult) -> Result<Self, String> {
@@ -1564,7 +1414,6 @@ pub mod types {
                 })
             }
         }
-
         impl From<super::WorkersResult> for WorkersResult {
             fn from(value: super::WorkersResult) -> Self {
                 Self {
@@ -1574,7 +1423,6 @@ pub mod types {
         }
     }
 }
-
 #[derive(Clone, Debug)]
 ///Client for Buildomat
 ///
@@ -1583,7 +1431,6 @@ pub struct Client {
     pub(crate) baseurl: String,
     pub(crate) client: reqwest::Client,
 }
-
 impl Client {
     /// Create a new client.
     ///
@@ -1599,7 +1446,6 @@ impl Client {
             .unwrap();
         Self::new_with_client(baseurl, client)
     }
-
     /// Construct a new client with an existing `reqwest::Client`,
     /// allowing more control over its configuration.
     ///
@@ -1612,17 +1458,14 @@ impl Client {
             client,
         }
     }
-
     /// Get the base URL to which requests are made.
     pub fn baseurl(&self) -> &String {
         &self.baseurl
     }
-
     /// Get the internal `reqwest::Client` used to make requests.
     pub fn client(&self) -> &reqwest::Client {
         &self.client
     }
-
     /// Get the version of this API.
     ///
     /// This string is pulled directly from the source OpenAPI
@@ -1631,7 +1474,6 @@ impl Client {
         "1.0"
     }
 }
-
 impl Client {
     ///Sends a `POST` request to `/v1/control/hold`
     ///
@@ -1643,7 +1485,6 @@ impl Client {
     pub fn control_hold(&self) -> builder::ControlHold {
         builder::ControlHold::new(self)
     }
-
     ///Sends a `POST` request to `/v1/control/resume`
     ///
     ///```ignore
@@ -1654,7 +1495,6 @@ impl Client {
     pub fn control_resume(&self) -> builder::ControlResume {
         builder::ControlResume::new(self)
     }
-
     ///Sends a `GET` request to `/v1/task/{task}`
     ///
     ///```ignore
@@ -1666,7 +1506,6 @@ impl Client {
     pub fn task_get(&self) -> builder::TaskGet {
         builder::TaskGet::new(self)
     }
-
     ///Sends a `GET` request to `/v1/tasks`
     ///
     ///```ignore
@@ -1677,7 +1516,6 @@ impl Client {
     pub fn tasks_get(&self) -> builder::TasksGet {
         builder::TasksGet::new(self)
     }
-
     ///Sends a `POST` request to `/v1/tasks`
     ///
     ///```ignore
@@ -1689,7 +1527,6 @@ impl Client {
     pub fn task_submit(&self) -> builder::TaskSubmit {
         builder::TaskSubmit::new(self)
     }
-
     ///Sends a `GET` request to `/v1/tasks/{task}/events`
     ///
     ///```ignore
@@ -1702,7 +1539,6 @@ impl Client {
     pub fn task_events_get(&self) -> builder::TaskEventsGet {
         builder::TaskEventsGet::new(self)
     }
-
     ///Sends a `GET` request to `/v1/tasks/{task}/outputs`
     ///
     ///```ignore
@@ -1714,7 +1550,6 @@ impl Client {
     pub fn task_outputs_get(&self) -> builder::TaskOutputsGet {
         builder::TaskOutputsGet::new(self)
     }
-
     ///Sends a `GET` request to `/v1/tasks/{task}/outputs/{output}`
     ///
     ///```ignore
@@ -1727,7 +1562,6 @@ impl Client {
     pub fn task_output_download(&self) -> builder::TaskOutputDownload {
         builder::TaskOutputDownload::new(self)
     }
-
     ///Sends a `POST` request to `/v1/users`
     ///
     ///```ignore
@@ -1739,7 +1573,6 @@ impl Client {
     pub fn user_create(&self) -> builder::UserCreate {
         builder::UserCreate::new(self)
     }
-
     ///Sends a `GET` request to `/v1/whoami`
     ///
     ///```ignore
@@ -1750,7 +1583,6 @@ impl Client {
     pub fn whoami(&self) -> builder::Whoami {
         builder::Whoami::new(self)
     }
-
     ///Sends a `POST` request to `/v1/worker/bootstrap`
     ///
     ///```ignore
@@ -1762,7 +1594,6 @@ impl Client {
     pub fn worker_bootstrap(&self) -> builder::WorkerBootstrap {
         builder::WorkerBootstrap::new(self)
     }
-
     ///Sends a `GET` request to `/v1/worker/ping`
     ///
     ///```ignore
@@ -1773,7 +1604,6 @@ impl Client {
     pub fn worker_ping(&self) -> builder::WorkerPing {
         builder::WorkerPing::new(self)
     }
-
     ///Sends a `POST` request to `/v1/worker/task/{task}/append`
     ///
     ///```ignore
@@ -1786,7 +1616,6 @@ impl Client {
     pub fn worker_task_append(&self) -> builder::WorkerTaskAppend {
         builder::WorkerTaskAppend::new(self)
     }
-
     ///Sends a `POST` request to `/v1/worker/task/{task}/chunk`
     ///
     ///```ignore
@@ -1799,7 +1628,6 @@ impl Client {
     pub fn worker_task_upload_chunk(&self) -> builder::WorkerTaskUploadChunk {
         builder::WorkerTaskUploadChunk::new(self)
     }
-
     ///Sends a `POST` request to `/v1/worker/task/{task}/complete`
     ///
     ///```ignore
@@ -1812,7 +1640,6 @@ impl Client {
     pub fn worker_task_complete(&self) -> builder::WorkerTaskComplete {
         builder::WorkerTaskComplete::new(self)
     }
-
     ///Sends a `POST` request to `/v1/worker/task/{task}/output`
     ///
     ///```ignore
@@ -1825,7 +1652,6 @@ impl Client {
     pub fn worker_task_add_output(&self) -> builder::WorkerTaskAddOutput {
         builder::WorkerTaskAddOutput::new(self)
     }
-
     ///Sends a `GET` request to `/v1/workers`
     ///
     ///```ignore
@@ -1836,7 +1662,6 @@ impl Client {
     pub fn workers_list(&self) -> builder::WorkersList {
         builder::WorkersList::new(self)
     }
-
     ///Sends a `POST` request to `/v1/workers/recycle`
     ///
     ///```ignore
@@ -1848,7 +1673,6 @@ impl Client {
         builder::WorkersRecycle::new(self)
     }
 }
-
 pub mod builder {
     use super::types;
     #[allow(unused_imports)]
@@ -1862,12 +1686,10 @@ pub mod builder {
     pub struct ControlHold<'a> {
         client: &'a super::Client,
     }
-
     impl<'a> ControlHold<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self { client }
         }
-
         ///Sends a `POST` request to `/v1/control/hold`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<()>> {
             let Self { client } = self;
@@ -1881,7 +1703,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::control_resume`]
     ///
     ///[`Client::control_resume`]: super::Client::control_resume
@@ -1889,12 +1710,10 @@ pub mod builder {
     pub struct ControlResume<'a> {
         client: &'a super::Client,
     }
-
     impl<'a> ControlResume<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self { client }
         }
-
         ///Sends a `POST` request to `/v1/control/resume`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<()>> {
             let Self { client } = self;
@@ -1908,7 +1727,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::task_get`]
     ///
     ///[`Client::task_get`]: super::Client::task_get
@@ -1917,7 +1735,6 @@ pub mod builder {
         client: &'a super::Client,
         task: Result<String, String>,
     }
-
     impl<'a> TaskGet<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -1925,7 +1742,6 @@ pub mod builder {
                 task: Err("task was not initialized".to_string()),
             }
         }
-
         pub fn task<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -1935,7 +1751,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for task failed".to_string());
             self
         }
-
         ///Sends a `GET` request to `/v1/task/{task}`
         pub async fn send(self) -> Result<ResponseValue<types::Task>, Error<()>> {
             let Self { client, task } = self;
@@ -1954,7 +1769,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::tasks_get`]
     ///
     ///[`Client::tasks_get`]: super::Client::tasks_get
@@ -1962,12 +1776,10 @@ pub mod builder {
     pub struct TasksGet<'a> {
         client: &'a super::Client,
     }
-
     impl<'a> TasksGet<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self { client }
         }
-
         ///Sends a `GET` request to `/v1/tasks`
         pub async fn send(self) -> Result<ResponseValue<Vec<types::Task>>, Error<()>> {
             let Self { client } = self;
@@ -1981,7 +1793,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::task_submit`]
     ///
     ///[`Client::task_submit`]: super::Client::task_submit
@@ -1990,7 +1801,6 @@ pub mod builder {
         client: &'a super::Client,
         body: Result<types::builder::TaskSubmit, String>,
     }
-
     impl<'a> TaskSubmit<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -1998,7 +1808,6 @@ pub mod builder {
                 body: Ok(types::builder::TaskSubmit::default()),
             }
         }
-
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::TaskSubmit>,
@@ -2009,7 +1818,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `TaskSubmit` for body failed".to_string());
             self
         }
-
         pub fn body_map<F>(mut self, f: F) -> Self
         where
             F: std::ops::FnOnce(types::builder::TaskSubmit) -> types::builder::TaskSubmit,
@@ -2017,7 +1825,6 @@ pub mod builder {
             self.body = self.body.map(f);
             self
         }
-
         ///Sends a `POST` request to `/v1/tasks`
         pub async fn send(self) -> Result<ResponseValue<types::TaskSubmitResult>, Error<()>> {
             let Self { client, body } = self;
@@ -2034,7 +1841,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::task_events_get`]
     ///
     ///[`Client::task_events_get`]: super::Client::task_events_get
@@ -2044,7 +1850,6 @@ pub mod builder {
         task: Result<String, String>,
         minseq: Result<Option<u32>, String>,
     }
-
     impl<'a> TaskEventsGet<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -2053,7 +1858,6 @@ pub mod builder {
                 minseq: Ok(None),
             }
         }
-
         pub fn task<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -2063,7 +1867,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for task failed".to_string());
             self
         }
-
         pub fn minseq<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<u32>,
@@ -2074,7 +1877,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `u32` for minseq failed".to_string());
             self
         }
-
         ///Sends a `GET` request to `/v1/tasks/{task}/events`
         pub async fn send(self) -> Result<ResponseValue<Vec<types::TaskEvent>>, Error<()>> {
             let Self {
@@ -2102,7 +1904,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::task_outputs_get`]
     ///
     ///[`Client::task_outputs_get`]: super::Client::task_outputs_get
@@ -2111,7 +1912,6 @@ pub mod builder {
         client: &'a super::Client,
         task: Result<String, String>,
     }
-
     impl<'a> TaskOutputsGet<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -2119,7 +1919,6 @@ pub mod builder {
                 task: Err("task was not initialized".to_string()),
             }
         }
-
         pub fn task<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -2129,7 +1928,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for task failed".to_string());
             self
         }
-
         ///Sends a `GET` request to `/v1/tasks/{task}/outputs`
         pub async fn send(self) -> Result<ResponseValue<Vec<types::TaskOutput>>, Error<()>> {
             let Self { client, task } = self;
@@ -2148,7 +1946,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::task_output_download`]
     ///
     ///[`Client::task_output_download`]: super::Client::task_output_download
@@ -2158,7 +1955,6 @@ pub mod builder {
         task: Result<String, String>,
         output: Result<String, String>,
     }
-
     impl<'a> TaskOutputDownload<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -2167,7 +1963,6 @@ pub mod builder {
                 output: Err("output was not initialized".to_string()),
             }
         }
-
         pub fn task<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -2177,7 +1972,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for task failed".to_string());
             self
         }
-
         pub fn output<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -2187,7 +1981,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for output failed".to_string());
             self
         }
-
         ///Sends a `GET` request to `/v1/tasks/{task}/outputs/{output}`
         pub async fn send(self) -> Result<ResponseValue<ByteStream>, Error<()>> {
             let Self {
@@ -2212,7 +2005,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::user_create`]
     ///
     ///[`Client::user_create`]: super::Client::user_create
@@ -2221,7 +2013,6 @@ pub mod builder {
         client: &'a super::Client,
         body: Result<types::builder::UserCreate, String>,
     }
-
     impl<'a> UserCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -2229,7 +2020,6 @@ pub mod builder {
                 body: Ok(types::builder::UserCreate::default()),
             }
         }
-
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::UserCreate>,
@@ -2240,7 +2030,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `UserCreate` for body failed".to_string());
             self
         }
-
         pub fn body_map<F>(mut self, f: F) -> Self
         where
             F: std::ops::FnOnce(types::builder::UserCreate) -> types::builder::UserCreate,
@@ -2248,7 +2037,6 @@ pub mod builder {
             self.body = self.body.map(f);
             self
         }
-
         ///Sends a `POST` request to `/v1/users`
         pub async fn send(self) -> Result<ResponseValue<types::UserCreateResult>, Error<()>> {
             let Self { client, body } = self;
@@ -2265,7 +2053,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::whoami`]
     ///
     ///[`Client::whoami`]: super::Client::whoami
@@ -2273,12 +2060,10 @@ pub mod builder {
     pub struct Whoami<'a> {
         client: &'a super::Client,
     }
-
     impl<'a> Whoami<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self { client }
         }
-
         ///Sends a `GET` request to `/v1/whoami`
         pub async fn send(self) -> Result<ResponseValue<types::WhoamiResult>, Error<()>> {
             let Self { client } = self;
@@ -2292,7 +2077,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::worker_bootstrap`]
     ///
     ///[`Client::worker_bootstrap`]: super::Client::worker_bootstrap
@@ -2301,7 +2085,6 @@ pub mod builder {
         client: &'a super::Client,
         body: Result<types::builder::WorkerBootstrap, String>,
     }
-
     impl<'a> WorkerBootstrap<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -2309,7 +2092,6 @@ pub mod builder {
                 body: Ok(types::builder::WorkerBootstrap::default()),
             }
         }
-
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::WorkerBootstrap>,
@@ -2320,7 +2102,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `WorkerBootstrap` for body failed".to_string());
             self
         }
-
         pub fn body_map<F>(mut self, f: F) -> Self
         where
             F: std::ops::FnOnce(types::builder::WorkerBootstrap) -> types::builder::WorkerBootstrap,
@@ -2328,7 +2109,6 @@ pub mod builder {
             self.body = self.body.map(f);
             self
         }
-
         ///Sends a `POST` request to `/v1/worker/bootstrap`
         pub async fn send(self) -> Result<ResponseValue<types::WorkerBootstrapResult>, Error<()>> {
             let Self { client, body } = self;
@@ -2345,7 +2125,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::worker_ping`]
     ///
     ///[`Client::worker_ping`]: super::Client::worker_ping
@@ -2353,12 +2132,10 @@ pub mod builder {
     pub struct WorkerPing<'a> {
         client: &'a super::Client,
     }
-
     impl<'a> WorkerPing<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self { client }
         }
-
         ///Sends a `GET` request to `/v1/worker/ping`
         pub async fn send(self) -> Result<ResponseValue<types::WorkerPingResult>, Error<()>> {
             let Self { client } = self;
@@ -2372,7 +2149,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::worker_task_append`]
     ///
     ///[`Client::worker_task_append`]: super::Client::worker_task_append
@@ -2382,7 +2158,6 @@ pub mod builder {
         task: Result<String, String>,
         body: Result<types::builder::WorkerAppendTask, String>,
     }
-
     impl<'a> WorkerTaskAppend<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -2391,7 +2166,6 @@ pub mod builder {
                 body: Ok(types::builder::WorkerAppendTask::default()),
             }
         }
-
         pub fn task<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -2401,7 +2175,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for task failed".to_string());
             self
         }
-
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::WorkerAppendTask>,
@@ -2412,7 +2185,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `WorkerAppendTask` for body failed".to_string());
             self
         }
-
         pub fn body_map<F>(mut self, f: F) -> Self
         where
             F: std::ops::FnOnce(
@@ -2422,7 +2194,6 @@ pub mod builder {
             self.body = self.body.map(f);
             self
         }
-
         ///Sends a `POST` request to `/v1/worker/task/{task}/append`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<()>> {
             let Self { client, task, body } = self;
@@ -2444,7 +2215,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::worker_task_upload_chunk`]
     ///
     ///[`Client::worker_task_upload_chunk`]: super::Client::worker_task_upload_chunk
@@ -2454,7 +2224,6 @@ pub mod builder {
         task: Result<String, String>,
         body: Result<reqwest::Body, String>,
     }
-
     impl<'a> WorkerTaskUploadChunk<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -2463,7 +2232,6 @@ pub mod builder {
                 body: Err("body was not initialized".to_string()),
             }
         }
-
         pub fn task<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -2473,7 +2241,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for task failed".to_string());
             self
         }
-
         pub fn body<B>(mut self, value: B) -> Self
         where
             B: std::convert::TryInto<reqwest::Body>,
@@ -2483,7 +2250,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `reqwest::Body` for body failed".to_string());
             self
         }
-
         ///Sends a `POST` request to `/v1/worker/task/{task}/chunk`
         pub async fn send(self) -> Result<ResponseValue<types::UploadedChunk>, Error<()>> {
             let Self { client, task, body } = self;
@@ -2511,7 +2277,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::worker_task_complete`]
     ///
     ///[`Client::worker_task_complete`]: super::Client::worker_task_complete
@@ -2521,7 +2286,6 @@ pub mod builder {
         task: Result<String, String>,
         body: Result<types::builder::WorkerCompleteTask, String>,
     }
-
     impl<'a> WorkerTaskComplete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -2530,7 +2294,6 @@ pub mod builder {
                 body: Ok(types::builder::WorkerCompleteTask::default()),
             }
         }
-
         pub fn task<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -2540,7 +2303,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for task failed".to_string());
             self
         }
-
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::WorkerCompleteTask>,
@@ -2551,7 +2313,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `WorkerCompleteTask` for body failed".to_string());
             self
         }
-
         pub fn body_map<F>(mut self, f: F) -> Self
         where
             F: std::ops::FnOnce(
@@ -2561,7 +2322,6 @@ pub mod builder {
             self.body = self.body.map(f);
             self
         }
-
         ///Sends a `POST` request to `/v1/worker/task/{task}/complete`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<()>> {
             let Self { client, task, body } = self;
@@ -2583,7 +2343,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::worker_task_add_output`]
     ///
     ///[`Client::worker_task_add_output`]: super::Client::worker_task_add_output
@@ -2593,7 +2352,6 @@ pub mod builder {
         task: Result<String, String>,
         body: Result<types::builder::WorkerAddOutput, String>,
     }
-
     impl<'a> WorkerTaskAddOutput<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
@@ -2602,7 +2360,6 @@ pub mod builder {
                 body: Ok(types::builder::WorkerAddOutput::default()),
             }
         }
-
         pub fn task<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<String>,
@@ -2612,7 +2369,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `String` for task failed".to_string());
             self
         }
-
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::WorkerAddOutput>,
@@ -2623,7 +2379,6 @@ pub mod builder {
                 .map_err(|_| "conversion to `WorkerAddOutput` for body failed".to_string());
             self
         }
-
         pub fn body_map<F>(mut self, f: F) -> Self
         where
             F: std::ops::FnOnce(types::builder::WorkerAddOutput) -> types::builder::WorkerAddOutput,
@@ -2631,7 +2386,6 @@ pub mod builder {
             self.body = self.body.map(f);
             self
         }
-
         ///Sends a `POST` request to `/v1/worker/task/{task}/output`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<()>> {
             let Self { client, task, body } = self;
@@ -2653,7 +2407,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::workers_list`]
     ///
     ///[`Client::workers_list`]: super::Client::workers_list
@@ -2661,12 +2414,10 @@ pub mod builder {
     pub struct WorkersList<'a> {
         client: &'a super::Client,
     }
-
     impl<'a> WorkersList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self { client }
         }
-
         ///Sends a `GET` request to `/v1/workers`
         pub async fn send(self) -> Result<ResponseValue<types::WorkersResult>, Error<()>> {
             let Self { client } = self;
@@ -2680,7 +2431,6 @@ pub mod builder {
             }
         }
     }
-
     ///Builder for [`Client::workers_recycle`]
     ///
     ///[`Client::workers_recycle`]: super::Client::workers_recycle
@@ -2688,12 +2438,10 @@ pub mod builder {
     pub struct WorkersRecycle<'a> {
         client: &'a super::Client,
     }
-
     impl<'a> WorkersRecycle<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self { client }
         }
-
         ///Sends a `POST` request to `/v1/workers/recycle`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<()>> {
             let Self { client } = self;
@@ -2708,7 +2456,6 @@ pub mod builder {
         }
     }
 }
-
 pub mod prelude {
     pub use super::Client;
 }

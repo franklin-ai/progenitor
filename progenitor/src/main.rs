@@ -84,6 +84,15 @@ impl From<TagArg> for TagStyle {
     }
 }
 
+fn reformat_code(input: String) -> String {
+    let config = rustfmt_wrapper::config::Config {
+        normalize_doc_attributes: Some(true),
+        wrap_comments: Some(true),
+        ..Default::default()
+    };
+    rustfmt_wrapper::rustfmt_config(config, input).unwrap()
+}
+
 fn save<P>(p: P, data: &str) -> Result<()>
 where
     P: AsRef<Path>,
@@ -179,6 +188,8 @@ fn main() -> Result<()> {
             } else {
                 api_code
             };
+            let lib_code = reformat_code(lib_code);
+
             let mut librs = src.clone();
             librs.push("lib.rs");
             save(librs, lib_code.as_str())?;
