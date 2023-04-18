@@ -45,8 +45,7 @@ pub mod types {
             builder::Error::default()
         }
     }
-    pub mod builder {
-        #[derive(Clone, Debug)]
+    mod builder {
         pub struct BodyWithDefaults {
             forty_two: Result<u32, String>,
             s: Result<String, String>,
@@ -116,17 +115,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::BodyWithDefaults> for BodyWithDefaults {
-            fn from(value: super::BodyWithDefaults) -> Self {
-                Self {
-                    forty_two: Ok(value.forty_two),
-                    s: Ok(value.s),
-                    something: Ok(value.something),
-                    yes: Ok(value.yes),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct Error {
             error_code: Result<Option<String>, String>,
             message: Result<String, String>,
@@ -183,17 +171,8 @@ pub mod types {
                 })
             }
         }
-        impl From<super::Error> for Error {
-            fn from(value: super::Error) -> Self {
-                Self {
-                    error_code: Ok(value.error_code),
-                    message: Ok(value.message),
-                    request_id: Ok(value.request_id),
-                }
-            }
-        }
     }
-    pub mod defaults {
+    mod defaults {
         pub(super) fn default_u64<T, const V: u64>() -> T
         where
             T: std::convert::TryFrom<u64>,

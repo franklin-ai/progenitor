@@ -616,8 +616,7 @@ pub mod types {
             value.clone()
         }
     }
-    pub mod builder {
-        #[derive(Clone, Debug)]
+    mod builder {
         pub struct CrucibleOpts {
             cert_pem: Result<Option<String>, String>,
             control: Result<Option<String>, String>,
@@ -765,23 +764,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::CrucibleOpts> for CrucibleOpts {
-            fn from(value: super::CrucibleOpts) -> Self {
-                Self {
-                    cert_pem: Ok(value.cert_pem),
-                    control: Ok(value.control),
-                    flush_timeout: Ok(value.flush_timeout),
-                    id: Ok(value.id),
-                    key: Ok(value.key),
-                    key_pem: Ok(value.key_pem),
-                    lossy: Ok(value.lossy),
-                    read_only: Ok(value.read_only),
-                    root_cert_pem: Ok(value.root_cert_pem),
-                    target: Ok(value.target),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct DiskAttachment {
             disk_id: Result<uuid::Uuid, String>,
             generation_id: Result<u64, String>,
@@ -838,16 +820,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::DiskAttachment> for DiskAttachment {
-            fn from(value: super::DiskAttachment) -> Self {
-                Self {
-                    disk_id: Ok(value.disk_id),
-                    generation_id: Ok(value.generation_id),
-                    state: Ok(value.state),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct DiskRequest {
             device: Result<String, String>,
             gen: Result<u64, String>,
@@ -948,19 +920,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::DiskRequest> for DiskRequest {
-            fn from(value: super::DiskRequest) -> Self {
-                Self {
-                    device: Ok(value.device),
-                    gen: Ok(value.gen),
-                    name: Ok(value.name),
-                    read_only: Ok(value.read_only),
-                    slot: Ok(value.slot),
-                    volume_construction_request: Ok(value.volume_construction_request),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct Error {
             error_code: Result<Option<String>, String>,
             message: Result<String, String>,
@@ -1017,16 +976,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::Error> for Error {
-            fn from(value: super::Error) -> Self {
-                Self {
-                    error_code: Ok(value.error_code),
-                    message: Ok(value.message),
-                    request_id: Ok(value.request_id),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct Instance {
             disks: Result<Vec<super::DiskAttachment>, String>,
             nics: Result<Vec<super::NetworkInterface>, String>,
@@ -1096,17 +1045,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::Instance> for Instance {
-            fn from(value: super::Instance) -> Self {
-                Self {
-                    disks: Ok(value.disks),
-                    nics: Ok(value.nics),
-                    properties: Ok(value.properties),
-                    state: Ok(value.state),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct InstanceEnsureRequest {
             cloud_init_bytes: Result<Option<String>, String>,
             disks: Result<Vec<super::DiskRequest>, String>,
@@ -1192,18 +1130,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::InstanceEnsureRequest> for InstanceEnsureRequest {
-            fn from(value: super::InstanceEnsureRequest) -> Self {
-                Self {
-                    cloud_init_bytes: Ok(value.cloud_init_bytes),
-                    disks: Ok(value.disks),
-                    migrate: Ok(value.migrate),
-                    nics: Ok(value.nics),
-                    properties: Ok(value.properties),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct InstanceEnsureResponse {
             migrate: Result<Option<super::InstanceMigrateInitiateResponse>, String>,
         }
@@ -1234,14 +1160,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::InstanceEnsureResponse> for InstanceEnsureResponse {
-            fn from(value: super::InstanceEnsureResponse) -> Self {
-                Self {
-                    migrate: Ok(value.migrate),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct InstanceGetResponse {
             instance: Result<super::Instance, String>,
         }
@@ -1272,14 +1190,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::InstanceGetResponse> for InstanceGetResponse {
-            fn from(value: super::InstanceGetResponse) -> Self {
-                Self {
-                    instance: Ok(value.instance),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct InstanceMigrateInitiateRequest {
             migration_id: Result<uuid::Uuid, String>,
             src_addr: Result<String, String>,
@@ -1338,16 +1248,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::InstanceMigrateInitiateRequest> for InstanceMigrateInitiateRequest {
-            fn from(value: super::InstanceMigrateInitiateRequest) -> Self {
-                Self {
-                    migration_id: Ok(value.migration_id),
-                    src_addr: Ok(value.src_addr),
-                    src_uuid: Ok(value.src_uuid),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct InstanceMigrateInitiateResponse {
             migration_id: Result<uuid::Uuid, String>,
         }
@@ -1380,14 +1280,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::InstanceMigrateInitiateResponse> for InstanceMigrateInitiateResponse {
-            fn from(value: super::InstanceMigrateInitiateResponse) -> Self {
-                Self {
-                    migration_id: Ok(value.migration_id),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct InstanceMigrateStatusRequest {
             migration_id: Result<uuid::Uuid, String>,
         }
@@ -1418,14 +1310,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::InstanceMigrateStatusRequest> for InstanceMigrateStatusRequest {
-            fn from(value: super::InstanceMigrateStatusRequest) -> Self {
-                Self {
-                    migration_id: Ok(value.migration_id),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct InstanceMigrateStatusResponse {
             state: Result<super::MigrationState, String>,
         }
@@ -1456,14 +1340,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::InstanceMigrateStatusResponse> for InstanceMigrateStatusResponse {
-            fn from(value: super::InstanceMigrateStatusResponse) -> Self {
-                Self {
-                    state: Ok(value.state),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct InstanceProperties {
             bootrom_id: Result<uuid::Uuid, String>,
             description: Result<String, String>,
@@ -1572,20 +1448,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::InstanceProperties> for InstanceProperties {
-            fn from(value: super::InstanceProperties) -> Self {
-                Self {
-                    bootrom_id: Ok(value.bootrom_id),
-                    description: Ok(value.description),
-                    id: Ok(value.id),
-                    image_id: Ok(value.image_id),
-                    memory: Ok(value.memory),
-                    name: Ok(value.name),
-                    vcpus: Ok(value.vcpus),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct InstanceStateMonitorRequest {
             gen: Result<u64, String>,
         }
@@ -1614,12 +1476,6 @@ pub mod types {
                 Ok(Self { gen: value.gen? })
             }
         }
-        impl From<super::InstanceStateMonitorRequest> for InstanceStateMonitorRequest {
-            fn from(value: super::InstanceStateMonitorRequest) -> Self {
-                Self { gen: Ok(value.gen) }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct InstanceStateMonitorResponse {
             gen: Result<u64, String>,
             state: Result<super::InstanceState, String>,
@@ -1663,15 +1519,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::InstanceStateMonitorResponse> for InstanceStateMonitorResponse {
-            fn from(value: super::InstanceStateMonitorResponse) -> Self {
-                Self {
-                    gen: Ok(value.gen),
-                    state: Ok(value.state),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct NetworkInterface {
             attachment: Result<super::NetworkInterfaceAttachmentState, String>,
             name: Result<String, String>,
@@ -1715,15 +1562,6 @@ pub mod types {
                 })
             }
         }
-        impl From<super::NetworkInterface> for NetworkInterface {
-            fn from(value: super::NetworkInterface) -> Self {
-                Self {
-                    attachment: Ok(value.attachment),
-                    name: Ok(value.name),
-                }
-            }
-        }
-        #[derive(Clone, Debug)]
         pub struct NetworkInterfaceRequest {
             name: Result<String, String>,
             slot: Result<super::Slot, String>,
@@ -1765,14 +1603,6 @@ pub mod types {
                     name: value.name?,
                     slot: value.slot?,
                 })
-            }
-        }
-        impl From<super::NetworkInterfaceRequest> for NetworkInterfaceRequest {
-            fn from(value: super::NetworkInterfaceRequest) -> Self {
-                Self {
-                    name: Ok(value.name),
-                    slot: Ok(value.slot),
-                }
             }
         }
     }

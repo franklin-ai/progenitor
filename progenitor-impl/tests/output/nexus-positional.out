@@ -5204,7 +5204,7 @@ pub mod types {
             value.clone()
         }
     }
-    pub mod defaults {
+    mod defaults {
         pub(super) fn default_bool<const V: bool>() -> bool {
             V
         }
