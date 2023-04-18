@@ -1956,13 +1956,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct InstanceEnsure<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::InstanceEnsureRequest, String>,
+        body: Result<types::InstanceEnsureRequest, String>,
     }
     impl<'a> InstanceEnsure<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::InstanceEnsureRequest::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -1971,17 +1971,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `InstanceEnsureRequest` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::InstanceEnsureRequest,
-            ) -> types::builder::InstanceEnsureRequest,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to `/instance`
@@ -1989,9 +1979,7 @@ pub mod builder {
             self,
         ) -> Result<ResponseValue<types::InstanceEnsureResponse>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::InstanceEnsureRequest>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/instance", client.baseurl,);
             let request = client.client.put(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -2080,31 +2068,22 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct InstanceMigrateStatus<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::InstanceMigrateStatusRequest, String>,
+        body: Result<types::InstanceMigrateStatusRequest, String>,
     }
     impl<'a> InstanceMigrateStatus<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::InstanceMigrateStatusRequest::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::InstanceMigrateStatusRequest>,
         {
-            self.body = value.try_into().map(From::from).map_err(|_| {
+            self.body = value.try_into().map_err(|_| {
                 "conversion to `InstanceMigrateStatusRequest` for body failed".to_string()
             });
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::InstanceMigrateStatusRequest,
-            ) -> types::builder::InstanceMigrateStatusRequest,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `GET` request to `/instance/migrate/status`
@@ -2113,9 +2092,7 @@ pub mod builder {
         ) -> Result<ResponseValue<types::InstanceMigrateStatusResponse>, Error<types::Error>>
         {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::InstanceMigrateStatusRequest>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/instance/migrate/status", client.baseurl,);
             let request = client.client.get(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -2222,31 +2199,22 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct InstanceStateMonitor<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::InstanceStateMonitorRequest, String>,
+        body: Result<types::InstanceStateMonitorRequest, String>,
     }
     impl<'a> InstanceStateMonitor<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::InstanceStateMonitorRequest::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::InstanceStateMonitorRequest>,
         {
-            self.body = value.try_into().map(From::from).map_err(|_| {
+            self.body = value.try_into().map_err(|_| {
                 "conversion to `InstanceStateMonitorRequest` for body failed".to_string()
             });
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::InstanceStateMonitorRequest,
-            ) -> types::builder::InstanceStateMonitorRequest,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `GET` request to `/instance/state-monitor`
@@ -2255,9 +2223,7 @@ pub mod builder {
         ) -> Result<ResponseValue<types::InstanceStateMonitorResponse>, Error<types::Error>>
         {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::InstanceStateMonitorRequest>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/instance/state-monitor", client.baseurl,);
             let request = client.client.get(url).json(&body).build()?;
             let result = client.client.execute(request).await;

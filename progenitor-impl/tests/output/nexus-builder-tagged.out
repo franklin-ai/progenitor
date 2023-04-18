@@ -19891,13 +19891,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct DeviceAuthRequest<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::DeviceAuthRequest, String>,
+        body: Result<types::DeviceAuthRequest, String>,
     }
     impl<'a> DeviceAuthRequest<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::DeviceAuthRequest::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -19906,25 +19906,13 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `DeviceAuthRequest` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::DeviceAuthRequest,
-            ) -> types::builder::DeviceAuthRequest,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/device/auth`
         pub async fn send(self) -> Result<ResponseValue<ByteStream>, Error<ByteStream>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::DeviceAuthRequest>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/device/auth", client.baseurl,);
             let request = client.client.post(url).form_urlencoded(&body)?.build()?;
             let result = client.client.execute(request).await;
@@ -19941,13 +19929,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct DeviceAuthConfirm<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::DeviceAuthVerify, String>,
+        body: Result<types::DeviceAuthVerify, String>,
     }
     impl<'a> DeviceAuthConfirm<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::DeviceAuthVerify::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -19956,25 +19944,13 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `DeviceAuthVerify` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::DeviceAuthVerify,
-            ) -> types::builder::DeviceAuthVerify,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/device/confirm`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::DeviceAuthVerify>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/device/confirm", client.baseurl,);
             let request = client.client.post(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -19997,39 +19973,28 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct DeviceAccessToken<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::DeviceAccessTokenRequest, String>,
+        body: Result<types::DeviceAccessTokenRequest, String>,
     }
     impl<'a> DeviceAccessToken<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::DeviceAccessTokenRequest::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
         where
             V: std::convert::TryInto<types::DeviceAccessTokenRequest>,
         {
-            self.body = value.try_into().map(From::from).map_err(|_| {
+            self.body = value.try_into().map_err(|_| {
                 "conversion to `DeviceAccessTokenRequest` for body failed".to_string()
             });
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::DeviceAccessTokenRequest,
-            ) -> types::builder::DeviceAccessTokenRequest,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/device/token`
         pub async fn send(self) -> Result<ResponseValue<ByteStream>, Error<ByteStream>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::DeviceAccessTokenRequest>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/device/token", client.baseurl,);
             let request = client.client.post(url).form_urlencoded(&body)?.build()?;
             let result = client.client.execute(request).await;
@@ -20179,13 +20144,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct LoginSpoof<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::SpoofLoginBody, String>,
+        body: Result<types::SpoofLoginBody, String>,
     }
     impl<'a> LoginSpoof<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::SpoofLoginBody::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -20194,23 +20159,13 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `SpoofLoginBody` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::SpoofLoginBody) -> types::builder::SpoofLoginBody,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/login`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::SpoofLoginBody>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/login", client.baseurl,);
             let request = client.client.post(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -20234,14 +20189,14 @@ pub mod builder {
     pub struct LoginLocal<'a> {
         client: &'a super::Client,
         silo_name: Result<types::Name, String>,
-        body: Result<types::builder::UsernamePasswordCredentials, String>,
+        body: Result<types::UsernamePasswordCredentials, String>,
     }
     impl<'a> LoginLocal<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 silo_name: Err("silo_name was not initialized".to_string()),
-                body: Ok(types::builder::UsernamePasswordCredentials::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn silo_name<V>(mut self, value: V) -> Self
@@ -20257,18 +20212,9 @@ pub mod builder {
         where
             V: std::convert::TryInto<types::UsernamePasswordCredentials>,
         {
-            self.body = value.try_into().map(From::from).map_err(|_| {
+            self.body = value.try_into().map_err(|_| {
                 "conversion to `UsernamePasswordCredentials` for body failed".to_string()
             });
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::UsernamePasswordCredentials,
-            ) -> types::builder::UsernamePasswordCredentials,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/login/{silo_name}/local`
@@ -20279,9 +20225,7 @@ pub mod builder {
                 body,
             } = self;
             let silo_name = silo_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::UsernamePasswordCredentials>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/login/{}/local",
                 client.baseurl,
@@ -20622,13 +20566,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct OrganizationCreate<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::OrganizationCreate, String>,
+        body: Result<types::OrganizationCreate, String>,
     }
     impl<'a> OrganizationCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::OrganizationCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -20637,25 +20581,13 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `OrganizationCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::OrganizationCreate,
-            ) -> types::builder::OrganizationCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/organizations`
         pub async fn send(self) -> Result<ResponseValue<types::Organization>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::OrganizationCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/organizations", client.baseurl,);
             let request = client.client.post(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -20730,14 +20662,14 @@ pub mod builder {
     pub struct OrganizationUpdate<'a> {
         client: &'a super::Client,
         organization_name: Result<types::Name, String>,
-        body: Result<types::builder::OrganizationUpdate, String>,
+        body: Result<types::OrganizationUpdate, String>,
     }
     impl<'a> OrganizationUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 organization_name: Err("organization_name was not initialized".to_string()),
-                body: Ok(types::builder::OrganizationUpdate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -20755,17 +20687,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `OrganizationUpdate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::OrganizationUpdate,
-            ) -> types::builder::OrganizationUpdate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to `/organizations/{organization_name}`
@@ -20776,9 +20698,7 @@ pub mod builder {
                 body,
             } = self;
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::OrganizationUpdate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}",
                 client.baseurl,
@@ -20910,14 +20830,14 @@ pub mod builder {
     pub struct OrganizationPolicyUpdate<'a> {
         client: &'a super::Client,
         organization_name: Result<types::Name, String>,
-        body: Result<types::builder::OrganizationRolePolicy, String>,
+        body: Result<types::OrganizationRolePolicy, String>,
     }
     impl<'a> OrganizationPolicyUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 organization_name: Err("organization_name was not initialized".to_string()),
-                body: Ok(types::builder::OrganizationRolePolicy::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -20935,17 +20855,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `OrganizationRolePolicy` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::OrganizationRolePolicy,
-            ) -> types::builder::OrganizationRolePolicy,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to `/organizations/{organization_name}/policy`
@@ -20958,9 +20868,7 @@ pub mod builder {
                 body,
             } = self;
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::OrganizationRolePolicy>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/policy",
                 client.baseurl,
@@ -21140,14 +21048,14 @@ pub mod builder {
     pub struct ProjectCreate<'a> {
         client: &'a super::Client,
         organization_name: Result<types::Name, String>,
-        body: Result<types::builder::ProjectCreate, String>,
+        body: Result<types::ProjectCreate, String>,
     }
     impl<'a> ProjectCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 organization_name: Err("organization_name was not initialized".to_string()),
-                body: Ok(types::builder::ProjectCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -21165,15 +21073,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `ProjectCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::ProjectCreate) -> types::builder::ProjectCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -21185,9 +21085,7 @@ pub mod builder {
                 body,
             } = self;
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::ProjectCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects",
                 client.baseurl,
@@ -21282,7 +21180,7 @@ pub mod builder {
         client: &'a super::Client,
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
-        body: Result<types::builder::ProjectUpdate, String>,
+        body: Result<types::ProjectUpdate, String>,
     }
     impl<'a> ProjectUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -21290,7 +21188,7 @@ pub mod builder {
                 client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(types::builder::ProjectUpdate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -21317,15 +21215,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `ProjectUpdate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::ProjectUpdate) -> types::builder::ProjectUpdate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to
@@ -21339,9 +21229,7 @@ pub mod builder {
             } = self;
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::ProjectUpdate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}",
                 client.baseurl,
@@ -21603,7 +21491,7 @@ pub mod builder {
         client: &'a super::Client,
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
-        body: Result<types::builder::DiskCreate, String>,
+        body: Result<types::DiskCreate, String>,
     }
     impl<'a> DiskCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -21611,7 +21499,7 @@ pub mod builder {
                 client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(types::builder::DiskCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -21638,15 +21526,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `DiskCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::DiskCreate) -> types::builder::DiskCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -21660,9 +21540,7 @@ pub mod builder {
             } = self;
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::DiskCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/disks",
                 client.baseurl,
@@ -22228,7 +22106,7 @@ pub mod builder {
         client: &'a super::Client,
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
-        body: Result<types::builder::ImageCreate, String>,
+        body: Result<types::ImageCreate, String>,
     }
     impl<'a> ImageCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -22236,7 +22114,7 @@ pub mod builder {
                 client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(types::builder::ImageCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -22263,15 +22141,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `ImageCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::ImageCreate) -> types::builder::ImageCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -22285,9 +22155,7 @@ pub mod builder {
             } = self;
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::ImageCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/images",
                 client.baseurl,
@@ -22647,7 +22515,7 @@ pub mod builder {
         client: &'a super::Client,
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
-        body: Result<types::builder::InstanceCreate, String>,
+        body: Result<types::InstanceCreate, String>,
     }
     impl<'a> InstanceCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -22655,7 +22523,7 @@ pub mod builder {
                 client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(types::builder::InstanceCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -22682,15 +22550,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `InstanceCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::InstanceCreate) -> types::builder::InstanceCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -22705,9 +22565,7 @@ pub mod builder {
             } = self;
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::InstanceCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/instances",
                 client.baseurl,
@@ -23082,7 +22940,7 @@ pub mod builder {
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
         instance_name: Result<types::Name, String>,
-        body: Result<types::builder::DiskIdentifier, String>,
+        body: Result<types::DiskIdentifier, String>,
     }
     impl<'a> InstanceDiskAttach<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -23091,7 +22949,7 @@ pub mod builder {
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
-                body: Ok(types::builder::DiskIdentifier::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -23127,15 +22985,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `DiskIdentifier` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::DiskIdentifier) -> types::builder::DiskIdentifier,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -23152,9 +23002,7 @@ pub mod builder {
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
             let instance_name = instance_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::DiskIdentifier>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/instances/{}/disks/attach",
                 client.baseurl,
@@ -23186,7 +23034,7 @@ pub mod builder {
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
         instance_name: Result<types::Name, String>,
-        body: Result<types::builder::DiskIdentifier, String>,
+        body: Result<types::DiskIdentifier, String>,
     }
     impl<'a> InstanceDiskDetach<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -23195,7 +23043,7 @@ pub mod builder {
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
-                body: Ok(types::builder::DiskIdentifier::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -23231,15 +23079,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `DiskIdentifier` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::DiskIdentifier) -> types::builder::DiskIdentifier,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -23256,9 +23096,7 @@ pub mod builder {
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
             let instance_name = instance_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::DiskIdentifier>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/instances/{}/disks/detach",
                 client.baseurl,
@@ -23373,7 +23211,7 @@ pub mod builder {
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
         instance_name: Result<types::Name, String>,
-        body: Result<types::builder::InstanceMigrate, String>,
+        body: Result<types::InstanceMigrate, String>,
     }
     impl<'a> InstanceMigrate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -23382,7 +23220,7 @@ pub mod builder {
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
-                body: Ok(types::builder::InstanceMigrate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -23418,15 +23256,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `InstanceMigrate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::InstanceMigrate) -> types::builder::InstanceMigrate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -23443,9 +23273,7 @@ pub mod builder {
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
             let instance_name = instance_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::InstanceMigrate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/instances/{}/migrate",
                 client.baseurl,
@@ -23660,7 +23488,7 @@ pub mod builder {
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
         instance_name: Result<types::Name, String>,
-        body: Result<types::builder::NetworkInterfaceCreate, String>,
+        body: Result<types::NetworkInterfaceCreate, String>,
     }
     impl<'a> InstanceNetworkInterfaceCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -23669,7 +23497,7 @@ pub mod builder {
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
-                body: Ok(types::builder::NetworkInterfaceCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -23705,17 +23533,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `NetworkInterfaceCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::NetworkInterfaceCreate,
-            ) -> types::builder::NetworkInterfaceCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -23734,9 +23552,7 @@ pub mod builder {
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
             let instance_name = instance_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::NetworkInterfaceCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/instances/{}/network-interfaces",
                 client.baseurl,
@@ -23866,7 +23682,7 @@ pub mod builder {
         project_name: Result<types::Name, String>,
         instance_name: Result<types::Name, String>,
         interface_name: Result<types::Name, String>,
-        body: Result<types::builder::NetworkInterfaceUpdate, String>,
+        body: Result<types::NetworkInterfaceUpdate, String>,
     }
     impl<'a> InstanceNetworkInterfaceUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -23876,7 +23692,7 @@ pub mod builder {
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
                 interface_name: Err("interface_name was not initialized".to_string()),
-                body: Ok(types::builder::NetworkInterfaceUpdate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -23921,17 +23737,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `NetworkInterfaceUpdate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::NetworkInterfaceUpdate,
-            ) -> types::builder::NetworkInterfaceUpdate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to
@@ -23952,9 +23758,7 @@ pub mod builder {
             let project_name = project_name.map_err(Error::InvalidRequest)?;
             let instance_name = instance_name.map_err(Error::InvalidRequest)?;
             let interface_name = interface_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::NetworkInterfaceUpdate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/instances/{}/network-interfaces/{}",
                 client.baseurl,
@@ -24618,7 +24422,7 @@ pub mod builder {
         client: &'a super::Client,
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
-        body: Result<types::builder::ProjectRolePolicy, String>,
+        body: Result<types::ProjectRolePolicy, String>,
     }
     impl<'a> ProjectPolicyUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -24626,7 +24430,7 @@ pub mod builder {
                 client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(types::builder::ProjectRolePolicy::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -24653,17 +24457,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `ProjectRolePolicy` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::ProjectRolePolicy,
-            ) -> types::builder::ProjectRolePolicy,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to
@@ -24679,9 +24473,7 @@ pub mod builder {
             } = self;
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::ProjectRolePolicy>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/policy",
                 client.baseurl,
@@ -24879,7 +24671,7 @@ pub mod builder {
         client: &'a super::Client,
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
-        body: Result<types::builder::SnapshotCreate, String>,
+        body: Result<types::SnapshotCreate, String>,
     }
     impl<'a> SnapshotCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -24887,7 +24679,7 @@ pub mod builder {
                 client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(types::builder::SnapshotCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -24914,15 +24706,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `SnapshotCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::SnapshotCreate) -> types::builder::SnapshotCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -24937,9 +24721,7 @@ pub mod builder {
             } = self;
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::SnapshotCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/snapshots",
                 client.baseurl,
@@ -25297,7 +25079,7 @@ pub mod builder {
         client: &'a super::Client,
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
-        body: Result<types::builder::VpcCreate, String>,
+        body: Result<types::VpcCreate, String>,
     }
     impl<'a> VpcCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -25305,7 +25087,7 @@ pub mod builder {
                 client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(types::builder::VpcCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -25332,15 +25114,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `VpcCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::VpcCreate) -> types::builder::VpcCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -25354,9 +25128,7 @@ pub mod builder {
             } = self;
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::VpcCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/vpcs",
                 client.baseurl,
@@ -25468,7 +25240,7 @@ pub mod builder {
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
         vpc_name: Result<types::Name, String>,
-        body: Result<types::builder::VpcUpdate, String>,
+        body: Result<types::VpcUpdate, String>,
     }
     impl<'a> VpcUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -25477,7 +25249,7 @@ pub mod builder {
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
-                body: Ok(types::builder::VpcUpdate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -25513,15 +25285,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `VpcUpdate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::VpcUpdate) -> types::builder::VpcUpdate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to
@@ -25538,9 +25302,7 @@ pub mod builder {
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
             let vpc_name = vpc_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::VpcUpdate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/vpcs/{}",
                 client.baseurl,
@@ -25736,7 +25498,7 @@ pub mod builder {
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
         vpc_name: Result<types::Name, String>,
-        body: Result<types::builder::VpcFirewallRuleUpdateParams, String>,
+        body: Result<types::VpcFirewallRuleUpdateParams, String>,
     }
     impl<'a> VpcFirewallRulesUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -25745,7 +25507,7 @@ pub mod builder {
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
-                body: Ok(types::builder::VpcFirewallRuleUpdateParams::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -25779,18 +25541,9 @@ pub mod builder {
         where
             V: std::convert::TryInto<types::VpcFirewallRuleUpdateParams>,
         {
-            self.body = value.try_into().map(From::from).map_err(|_| {
+            self.body = value.try_into().map_err(|_| {
                 "conversion to `VpcFirewallRuleUpdateParams` for body failed".to_string()
             });
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::VpcFirewallRuleUpdateParams,
-            ) -> types::builder::VpcFirewallRuleUpdateParams,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to
@@ -25809,9 +25562,7 @@ pub mod builder {
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
             let vpc_name = vpc_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::VpcFirewallRuleUpdateParams>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/vpcs/{}/firewall/rules",
                 client.baseurl,
@@ -26025,7 +25776,7 @@ pub mod builder {
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
         vpc_name: Result<types::Name, String>,
-        body: Result<types::builder::VpcRouterCreate, String>,
+        body: Result<types::VpcRouterCreate, String>,
     }
     impl<'a> VpcRouterCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -26034,7 +25785,7 @@ pub mod builder {
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
-                body: Ok(types::builder::VpcRouterCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -26070,15 +25821,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `VpcRouterCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::VpcRouterCreate) -> types::builder::VpcRouterCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -26095,9 +25838,7 @@ pub mod builder {
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
             let vpc_name = vpc_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::VpcRouterCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/vpcs/{}/routers",
                 client.baseurl,
@@ -26225,7 +25966,7 @@ pub mod builder {
         project_name: Result<types::Name, String>,
         vpc_name: Result<types::Name, String>,
         router_name: Result<types::Name, String>,
-        body: Result<types::builder::VpcRouterUpdate, String>,
+        body: Result<types::VpcRouterUpdate, String>,
     }
     impl<'a> VpcRouterUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -26235,7 +25976,7 @@ pub mod builder {
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
                 router_name: Err("router_name was not initialized".to_string()),
-                body: Ok(types::builder::VpcRouterUpdate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -26280,15 +26021,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `VpcRouterUpdate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::VpcRouterUpdate) -> types::builder::VpcRouterUpdate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to
@@ -26307,9 +26040,7 @@ pub mod builder {
             let project_name = project_name.map_err(Error::InvalidRequest)?;
             let vpc_name = vpc_name.map_err(Error::InvalidRequest)?;
             let router_name = router_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::VpcRouterUpdate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/vpcs/{}/routers/{}",
                 client.baseurl,
@@ -26634,7 +26365,7 @@ pub mod builder {
         project_name: Result<types::Name, String>,
         vpc_name: Result<types::Name, String>,
         router_name: Result<types::Name, String>,
-        body: Result<types::builder::RouterRouteCreateParams, String>,
+        body: Result<types::RouterRouteCreateParams, String>,
     }
     impl<'a> VpcRouterRouteCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -26644,7 +26375,7 @@ pub mod builder {
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
                 router_name: Err("router_name was not initialized".to_string()),
-                body: Ok(types::builder::RouterRouteCreateParams::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -26689,17 +26420,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `RouterRouteCreateParams` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::RouterRouteCreateParams,
-            ) -> types::builder::RouterRouteCreateParams,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -26718,9 +26439,7 @@ pub mod builder {
             let project_name = project_name.map_err(Error::InvalidRequest)?;
             let vpc_name = vpc_name.map_err(Error::InvalidRequest)?;
             let router_name = router_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::RouterRouteCreateParams>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/vpcs/{}/routers/{}/routes",
                 client.baseurl,
@@ -26864,7 +26583,7 @@ pub mod builder {
         vpc_name: Result<types::Name, String>,
         router_name: Result<types::Name, String>,
         route_name: Result<types::Name, String>,
-        body: Result<types::builder::RouterRouteUpdateParams, String>,
+        body: Result<types::RouterRouteUpdateParams, String>,
     }
     impl<'a> VpcRouterRouteUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -26875,7 +26594,7 @@ pub mod builder {
                 vpc_name: Err("vpc_name was not initialized".to_string()),
                 router_name: Err("router_name was not initialized".to_string()),
                 route_name: Err("route_name was not initialized".to_string()),
-                body: Ok(types::builder::RouterRouteUpdateParams::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -26929,17 +26648,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `RouterRouteUpdateParams` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::RouterRouteUpdateParams,
-            ) -> types::builder::RouterRouteUpdateParams,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to
@@ -26960,9 +26669,7 @@ pub mod builder {
             let vpc_name = vpc_name.map_err(Error::InvalidRequest)?;
             let router_name = router_name.map_err(Error::InvalidRequest)?;
             let route_name = route_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::RouterRouteUpdateParams>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/vpcs/{}/routers/{}/routes/{}",
                 client.baseurl,
@@ -27287,7 +26994,7 @@ pub mod builder {
         organization_name: Result<types::Name, String>,
         project_name: Result<types::Name, String>,
         vpc_name: Result<types::Name, String>,
-        body: Result<types::builder::VpcSubnetCreate, String>,
+        body: Result<types::VpcSubnetCreate, String>,
     }
     impl<'a> VpcSubnetCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -27296,7 +27003,7 @@ pub mod builder {
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
-                body: Ok(types::builder::VpcSubnetCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -27332,15 +27039,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `VpcSubnetCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::VpcSubnetCreate) -> types::builder::VpcSubnetCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -27357,9 +27056,7 @@ pub mod builder {
             let organization_name = organization_name.map_err(Error::InvalidRequest)?;
             let project_name = project_name.map_err(Error::InvalidRequest)?;
             let vpc_name = vpc_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::VpcSubnetCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/vpcs/{}/subnets",
                 client.baseurl,
@@ -27487,7 +27184,7 @@ pub mod builder {
         project_name: Result<types::Name, String>,
         vpc_name: Result<types::Name, String>,
         subnet_name: Result<types::Name, String>,
-        body: Result<types::builder::VpcSubnetUpdate, String>,
+        body: Result<types::VpcSubnetUpdate, String>,
     }
     impl<'a> VpcSubnetUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -27497,7 +27194,7 @@ pub mod builder {
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
                 subnet_name: Err("subnet_name was not initialized".to_string()),
-                body: Ok(types::builder::VpcSubnetUpdate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -27542,15 +27239,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `VpcSubnetUpdate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::VpcSubnetUpdate) -> types::builder::VpcSubnetUpdate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to
@@ -27569,9 +27258,7 @@ pub mod builder {
             let project_name = project_name.map_err(Error::InvalidRequest)?;
             let vpc_name = vpc_name.map_err(Error::InvalidRequest)?;
             let subnet_name = subnet_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::VpcSubnetUpdate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/organizations/{}/projects/{}/vpcs/{}/subnets/{}",
                 client.baseurl,
@@ -27925,13 +27612,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct PolicyUpdate<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::SiloRolePolicy, String>,
+        body: Result<types::SiloRolePolicy, String>,
     }
     impl<'a> PolicyUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::SiloRolePolicy::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -27940,15 +27627,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `SiloRolePolicy` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::SiloRolePolicy) -> types::builder::SiloRolePolicy,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to `/policy`
@@ -27956,9 +27635,7 @@ pub mod builder {
             self,
         ) -> Result<ResponseValue<types::SiloRolePolicy>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::SiloRolePolicy>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/policy", client.baseurl,);
             let request = client.client.put(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -28440,13 +28117,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct SessionSshkeyCreate<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::SshKeyCreate, String>,
+        body: Result<types::SshKeyCreate, String>,
     }
     impl<'a> SessionSshkeyCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::SshKeyCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -28455,23 +28132,13 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `SshKeyCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::SshKeyCreate) -> types::builder::SshKeyCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/session/me/sshkeys`
         pub async fn send(self) -> Result<ResponseValue<types::SshKey>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::SshKeyCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/session/me/sshkeys", client.baseurl,);
             let request = client.client.post(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -28873,13 +28540,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct CertificateCreate<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::CertificateCreate, String>,
+        body: Result<types::CertificateCreate, String>,
     }
     impl<'a> CertificateCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::CertificateCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -28888,25 +28555,13 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `CertificateCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::CertificateCreate,
-            ) -> types::builder::CertificateCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/system/certificates`
         pub async fn send(self) -> Result<ResponseValue<types::Certificate>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::CertificateCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/system/certificates", client.baseurl,);
             let request = client.client.post(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -29809,13 +29464,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct SystemImageCreate<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::GlobalImageCreate, String>,
+        body: Result<types::GlobalImageCreate, String>,
     }
     impl<'a> SystemImageCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::GlobalImageCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -29824,25 +29479,13 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `GlobalImageCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::GlobalImageCreate,
-            ) -> types::builder::GlobalImageCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/system/images`
         pub async fn send(self) -> Result<ResponseValue<types::GlobalImage>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::GlobalImageCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/system/images", client.baseurl,);
             let request = client.client.post(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -30094,13 +29737,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct IpPoolCreate<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::IpPoolCreate, String>,
+        body: Result<types::IpPoolCreate, String>,
     }
     impl<'a> IpPoolCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::IpPoolCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -30109,23 +29752,13 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `IpPoolCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::IpPoolCreate) -> types::builder::IpPoolCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/system/ip-pools`
         pub async fn send(self) -> Result<ResponseValue<types::IpPool>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::IpPoolCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/system/ip-pools", client.baseurl,);
             let request = client.client.post(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -30197,14 +29830,14 @@ pub mod builder {
     pub struct IpPoolUpdate<'a> {
         client: &'a super::Client,
         pool_name: Result<types::Name, String>,
-        body: Result<types::builder::IpPoolUpdate, String>,
+        body: Result<types::IpPoolUpdate, String>,
     }
     impl<'a> IpPoolUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 pool_name: Err("pool_name was not initialized".to_string()),
-                body: Ok(types::builder::IpPoolUpdate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn pool_name<V>(mut self, value: V) -> Self
@@ -30222,15 +29855,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `IpPoolUpdate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::IpPoolUpdate) -> types::builder::IpPoolUpdate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to `/system/ip-pools/{pool_name}`
@@ -30241,9 +29866,7 @@ pub mod builder {
                 body,
             } = self;
             let pool_name = pool_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::IpPoolUpdate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/system/ip-pools/{}",
                 client.baseurl,
@@ -30973,13 +30596,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct SystemPolicyUpdate<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::FleetRolePolicy, String>,
+        body: Result<types::FleetRolePolicy, String>,
     }
     impl<'a> SystemPolicyUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::FleetRolePolicy::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -30988,15 +30611,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `FleetRolePolicy` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::FleetRolePolicy) -> types::builder::FleetRolePolicy,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to `/system/policy`
@@ -31004,9 +30619,7 @@ pub mod builder {
             self,
         ) -> Result<ResponseValue<types::FleetRolePolicy>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::FleetRolePolicy>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/system/policy", client.baseurl,);
             let request = client.client.put(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -31343,13 +30956,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct SiloCreate<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::SiloCreate, String>,
+        body: Result<types::SiloCreate, String>,
     }
     impl<'a> SiloCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::SiloCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -31358,23 +30971,13 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `SiloCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::SiloCreate) -> types::builder::SiloCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/system/silos`
         pub async fn send(self) -> Result<ResponseValue<types::Silo>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::SiloCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/system/silos", client.baseurl,);
             let request = client.client.post(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -31647,14 +31250,14 @@ pub mod builder {
     pub struct LocalIdpUserCreate<'a> {
         client: &'a super::Client,
         silo_name: Result<types::Name, String>,
-        body: Result<types::builder::UserCreate, String>,
+        body: Result<types::UserCreate, String>,
     }
     impl<'a> LocalIdpUserCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 silo_name: Err("silo_name was not initialized".to_string()),
-                body: Ok(types::builder::UserCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn silo_name<V>(mut self, value: V) -> Self
@@ -31672,15 +31275,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `UserCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::UserCreate) -> types::builder::UserCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -31692,9 +31287,7 @@ pub mod builder {
                 body,
             } = self;
             let silo_name = silo_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::UserCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/system/silos/{}/identity-providers/local/users",
                 client.baseurl,
@@ -31868,14 +31461,14 @@ pub mod builder {
     pub struct SamlIdentityProviderCreate<'a> {
         client: &'a super::Client,
         silo_name: Result<types::Name, String>,
-        body: Result<types::builder::SamlIdentityProviderCreate, String>,
+        body: Result<types::SamlIdentityProviderCreate, String>,
     }
     impl<'a> SamlIdentityProviderCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 silo_name: Err("silo_name was not initialized".to_string()),
-                body: Ok(types::builder::SamlIdentityProviderCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn silo_name<V>(mut self, value: V) -> Self
@@ -31891,18 +31484,9 @@ pub mod builder {
         where
             V: std::convert::TryInto<types::SamlIdentityProviderCreate>,
         {
-            self.body = value.try_into().map(From::from).map_err(|_| {
+            self.body = value.try_into().map_err(|_| {
                 "conversion to `SamlIdentityProviderCreate` for body failed".to_string()
             });
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::SamlIdentityProviderCreate,
-            ) -> types::builder::SamlIdentityProviderCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to
@@ -31916,9 +31500,7 @@ pub mod builder {
                 body,
             } = self;
             let silo_name = silo_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::SamlIdentityProviderCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/system/silos/{}/identity-providers/saml",
                 client.baseurl,
@@ -32064,14 +31646,14 @@ pub mod builder {
     pub struct SiloPolicyUpdate<'a> {
         client: &'a super::Client,
         silo_name: Result<types::Name, String>,
-        body: Result<types::builder::SiloRolePolicy, String>,
+        body: Result<types::SiloRolePolicy, String>,
     }
     impl<'a> SiloPolicyUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 silo_name: Err("silo_name was not initialized".to_string()),
-                body: Ok(types::builder::SiloRolePolicy::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn silo_name<V>(mut self, value: V) -> Self
@@ -32089,15 +31671,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `SiloRolePolicy` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::SiloRolePolicy) -> types::builder::SiloRolePolicy,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to `/system/silos/{silo_name}/policy`
@@ -32110,9 +31684,7 @@ pub mod builder {
                 body,
             } = self;
             let silo_name = silo_name.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::SiloRolePolicy>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/system/silos/{}/policy",
                 client.baseurl,
@@ -32956,7 +32528,7 @@ pub mod builder {
         client: &'a super::Client,
         organization: Result<Option<types::NameOrId>, String>,
         project: Result<types::NameOrId, String>,
-        body: Result<types::builder::DiskCreate, String>,
+        body: Result<types::DiskCreate, String>,
     }
     impl<'a> DiskCreateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -32964,7 +32536,7 @@ pub mod builder {
                 client,
                 organization: Ok(None),
                 project: Err("project was not initialized".to_string()),
-                body: Ok(types::builder::DiskCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization<V>(mut self, value: V) -> Self
@@ -32992,15 +32564,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `DiskCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::DiskCreate) -> types::builder::DiskCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/v1/disks`
@@ -33013,9 +32577,7 @@ pub mod builder {
             } = self;
             let organization = organization.map_err(Error::InvalidRequest)?;
             let project = project.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::DiskCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/v1/disks", client.baseurl,);
             let mut query = Vec::with_capacity(2usize);
             if let Some(v) = &organization {
@@ -33386,7 +32948,7 @@ pub mod builder {
         client: &'a super::Client,
         organization: Result<Option<types::NameOrId>, String>,
         project: Result<types::NameOrId, String>,
-        body: Result<types::builder::InstanceCreate, String>,
+        body: Result<types::InstanceCreate, String>,
     }
     impl<'a> InstanceCreateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -33394,7 +32956,7 @@ pub mod builder {
                 client,
                 organization: Ok(None),
                 project: Err("project was not initialized".to_string()),
-                body: Ok(types::builder::InstanceCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization<V>(mut self, value: V) -> Self
@@ -33422,15 +32984,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `InstanceCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::InstanceCreate) -> types::builder::InstanceCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/v1/instances`
@@ -33443,9 +32997,7 @@ pub mod builder {
             } = self;
             let organization = organization.map_err(Error::InvalidRequest)?;
             let project = project.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::InstanceCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/v1/instances", client.baseurl,);
             let mut query = Vec::with_capacity(2usize);
             if let Some(v) = &organization {
@@ -33834,7 +33386,7 @@ pub mod builder {
         instance: Result<types::NameOrId, String>,
         organization: Result<Option<types::NameOrId>, String>,
         project: Result<Option<types::NameOrId>, String>,
-        body: Result<types::builder::DiskPath, String>,
+        body: Result<types::DiskPath, String>,
     }
     impl<'a> InstanceDiskAttachV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -33843,7 +33395,7 @@ pub mod builder {
                 instance: Err("instance was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
-                body: Ok(types::builder::DiskPath::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn instance<V>(mut self, value: V) -> Self
@@ -33881,15 +33433,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `DiskPath` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::DiskPath) -> types::builder::DiskPath,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/v1/instances/{instance}/disks/attach`
@@ -33904,9 +33448,7 @@ pub mod builder {
             let instance = instance.map_err(Error::InvalidRequest)?;
             let organization = organization.map_err(Error::InvalidRequest)?;
             let project = project.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::DiskPath>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/v1/instances/{}/disks/attach",
                 client.baseurl,
@@ -33943,7 +33485,7 @@ pub mod builder {
         instance: Result<types::NameOrId, String>,
         organization: Result<Option<types::NameOrId>, String>,
         project: Result<Option<types::NameOrId>, String>,
-        body: Result<types::builder::DiskPath, String>,
+        body: Result<types::DiskPath, String>,
     }
     impl<'a> InstanceDiskDetachV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -33952,7 +33494,7 @@ pub mod builder {
                 instance: Err("instance was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
-                body: Ok(types::builder::DiskPath::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn instance<V>(mut self, value: V) -> Self
@@ -33990,15 +33532,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `DiskPath` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::DiskPath) -> types::builder::DiskPath,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/v1/instances/{instance}/disks/detach`
@@ -34013,9 +33547,7 @@ pub mod builder {
             let instance = instance.map_err(Error::InvalidRequest)?;
             let organization = organization.map_err(Error::InvalidRequest)?;
             let project = project.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::DiskPath>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/v1/instances/{}/disks/detach",
                 client.baseurl,
@@ -34052,7 +33584,7 @@ pub mod builder {
         instance: Result<types::NameOrId, String>,
         organization: Result<Option<types::NameOrId>, String>,
         project: Result<Option<types::NameOrId>, String>,
-        body: Result<types::builder::InstanceMigrate, String>,
+        body: Result<types::InstanceMigrate, String>,
     }
     impl<'a> InstanceMigrateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -34061,7 +33593,7 @@ pub mod builder {
                 instance: Err("instance was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
-                body: Ok(types::builder::InstanceMigrate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn instance<V>(mut self, value: V) -> Self
@@ -34099,15 +33631,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `InstanceMigrate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::InstanceMigrate) -> types::builder::InstanceMigrate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/v1/instances/{instance}/migrate`
@@ -34122,9 +33646,7 @@ pub mod builder {
             let instance = instance.map_err(Error::InvalidRequest)?;
             let organization = organization.map_err(Error::InvalidRequest)?;
             let project = project.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::InstanceMigrate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/v1/instances/{}/migrate",
                 client.baseurl,
@@ -34786,13 +34308,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct OrganizationCreateV1<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::OrganizationCreate, String>,
+        body: Result<types::OrganizationCreate, String>,
     }
     impl<'a> OrganizationCreateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::OrganizationCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -34801,25 +34323,13 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `OrganizationCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::OrganizationCreate,
-            ) -> types::builder::OrganizationCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/v1/organizations`
         pub async fn send(self) -> Result<ResponseValue<types::Organization>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::OrganizationCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/v1/organizations", client.baseurl,);
             let request = client.client.post(url).json(&body).build()?;
             let result = client.client.execute(request).await;
@@ -34894,14 +34404,14 @@ pub mod builder {
     pub struct OrganizationUpdateV1<'a> {
         client: &'a super::Client,
         organization: Result<types::NameOrId, String>,
-        body: Result<types::builder::OrganizationUpdate, String>,
+        body: Result<types::OrganizationUpdate, String>,
     }
     impl<'a> OrganizationUpdateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 organization: Err("organization was not initialized".to_string()),
-                body: Ok(types::builder::OrganizationUpdate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization<V>(mut self, value: V) -> Self
@@ -34919,17 +34429,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `OrganizationUpdate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::OrganizationUpdate,
-            ) -> types::builder::OrganizationUpdate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to `/v1/organizations/{organization}`
@@ -34940,9 +34440,7 @@ pub mod builder {
                 body,
             } = self;
             let organization = organization.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::OrganizationUpdate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/v1/organizations/{}",
                 client.baseurl,
@@ -35074,14 +34572,14 @@ pub mod builder {
     pub struct OrganizationPolicyUpdateV1<'a> {
         client: &'a super::Client,
         organization: Result<types::NameOrId, String>,
-        body: Result<types::builder::OrganizationRolePolicy, String>,
+        body: Result<types::OrganizationRolePolicy, String>,
     }
     impl<'a> OrganizationPolicyUpdateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 organization: Err("organization was not initialized".to_string()),
-                body: Ok(types::builder::OrganizationRolePolicy::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization<V>(mut self, value: V) -> Self
@@ -35099,17 +34597,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `OrganizationRolePolicy` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::OrganizationRolePolicy,
-            ) -> types::builder::OrganizationRolePolicy,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to `/v1/organizations/{organization}/policy`
@@ -35122,9 +34610,7 @@ pub mod builder {
                 body,
             } = self;
             let organization = organization.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::OrganizationRolePolicy>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/v1/organizations/{}/policy",
                 client.baseurl,
@@ -35303,14 +34789,14 @@ pub mod builder {
     pub struct ProjectCreateV1<'a> {
         client: &'a super::Client,
         organization: Result<types::NameOrId, String>,
-        body: Result<types::builder::ProjectCreate, String>,
+        body: Result<types::ProjectCreate, String>,
     }
     impl<'a> ProjectCreateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 organization: Err("organization was not initialized".to_string()),
-                body: Ok(types::builder::ProjectCreate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn organization<V>(mut self, value: V) -> Self
@@ -35328,15 +34814,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `ProjectCreate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::ProjectCreate) -> types::builder::ProjectCreate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/v1/projects`
@@ -35347,9 +34825,7 @@ pub mod builder {
                 body,
             } = self;
             let organization = organization.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::ProjectCreate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/v1/projects", client.baseurl,);
             let mut query = Vec::with_capacity(1usize);
             query.push(("organization", organization.to_string()));
@@ -35445,7 +34921,7 @@ pub mod builder {
         client: &'a super::Client,
         project: Result<types::NameOrId, String>,
         organization: Result<Option<types::NameOrId>, String>,
-        body: Result<types::builder::ProjectUpdate, String>,
+        body: Result<types::ProjectUpdate, String>,
     }
     impl<'a> ProjectUpdateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -35453,7 +34929,7 @@ pub mod builder {
                 client,
                 project: Err("project was not initialized".to_string()),
                 organization: Ok(None),
-                body: Ok(types::builder::ProjectUpdate::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn project<V>(mut self, value: V) -> Self
@@ -35481,15 +34957,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `ProjectUpdate` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::ProjectUpdate) -> types::builder::ProjectUpdate,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to `/v1/projects/{project}`
@@ -35502,9 +34970,7 @@ pub mod builder {
             } = self;
             let project = project.map_err(Error::InvalidRequest)?;
             let organization = organization.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::ProjectUpdate>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/v1/projects/{}",
                 client.baseurl,
@@ -35677,7 +35143,7 @@ pub mod builder {
         client: &'a super::Client,
         project: Result<types::NameOrId, String>,
         organization: Result<Option<types::NameOrId>, String>,
-        body: Result<types::builder::ProjectRolePolicy, String>,
+        body: Result<types::ProjectRolePolicy, String>,
     }
     impl<'a> ProjectPolicyUpdateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
@@ -35685,7 +35151,7 @@ pub mod builder {
                 client,
                 project: Err("project was not initialized".to_string()),
                 organization: Ok(None),
-                body: Ok(types::builder::ProjectRolePolicy::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn project<V>(mut self, value: V) -> Self
@@ -35713,17 +35179,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `ProjectRolePolicy` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::ProjectRolePolicy,
-            ) -> types::builder::ProjectRolePolicy,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `PUT` request to `/v1/projects/{project}/policy`
@@ -35738,9 +35194,7 @@ pub mod builder {
             } = self;
             let project = project.map_err(Error::InvalidRequest)?;
             let organization = organization.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::ProjectRolePolicy>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!(
                 "{}/v1/projects/{}/policy",
                 client.baseurl,
@@ -36120,13 +35574,13 @@ pub mod builder {
     #[derive(Debug, Clone)]
     pub struct SystemUpdateStart<'a> {
         client: &'a super::Client,
-        body: Result<types::builder::SystemUpdateStart, String>,
+        body: Result<types::SystemUpdateStart, String>,
     }
     impl<'a> SystemUpdateStart<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
-                body: Ok(types::builder::SystemUpdateStart::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn body<V>(mut self, value: V) -> Self
@@ -36135,17 +35589,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `SystemUpdateStart` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::SystemUpdateStart,
-            ) -> types::builder::SystemUpdateStart,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/v1/system/update/start`
@@ -36153,9 +35597,7 @@ pub mod builder {
             self,
         ) -> Result<ResponseValue<types::UpdateDeployment>, Error<types::Error>> {
             let Self { client, body } = self;
-            let body = body
-                .and_then(std::convert::TryInto::<types::SystemUpdateStart>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/v1/system/update/start", client.baseurl,);
             let request = client.client.post(url).json(&body).build()?;
             let result = client.client.execute(request).await;

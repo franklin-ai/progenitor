@@ -972,14 +972,14 @@ pub mod builder {
     pub struct Enrol<'a> {
         client: &'a super::Client,
         authorization: Result<String, String>,
-        body: Result<types::builder::EnrolBody, String>,
+        body: Result<types::EnrolBody, String>,
     }
     impl<'a> Enrol<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 authorization: Err("authorization was not initialized".to_string()),
-                body: Ok(types::builder::EnrolBody::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn authorization<V>(mut self, value: V) -> Self
@@ -997,15 +997,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `EnrolBody` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::EnrolBody) -> types::builder::EnrolBody,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/enrol`
@@ -1016,9 +1008,7 @@ pub mod builder {
                 body,
             } = self;
             let authorization = authorization.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::EnrolBody>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/enrol", client.baseurl,);
             let mut header_map = HeaderMap::with_capacity(1usize);
             header_map.append("Authorization", HeaderValue::try_from(authorization)?);
@@ -1129,14 +1119,14 @@ pub mod builder {
     pub struct ReportFinish<'a> {
         client: &'a super::Client,
         authorization: Result<String, String>,
-        body: Result<types::builder::ReportFinishBody, String>,
+        body: Result<types::ReportFinishBody, String>,
     }
     impl<'a> ReportFinish<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 authorization: Err("authorization was not initialized".to_string()),
-                body: Ok(types::builder::ReportFinishBody::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn authorization<V>(mut self, value: V) -> Self
@@ -1154,17 +1144,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `ReportFinishBody` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::ReportFinishBody,
-            ) -> types::builder::ReportFinishBody,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/report/finish`
@@ -1175,9 +1155,7 @@ pub mod builder {
                 body,
             } = self;
             let authorization = authorization.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::ReportFinishBody>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/report/finish", client.baseurl,);
             let mut header_map = HeaderMap::with_capacity(1usize);
             header_map.append("Authorization", HeaderValue::try_from(authorization)?);
@@ -1202,14 +1180,14 @@ pub mod builder {
     pub struct ReportOutput<'a> {
         client: &'a super::Client,
         authorization: Result<String, String>,
-        body: Result<types::builder::ReportOutputBody, String>,
+        body: Result<types::ReportOutputBody, String>,
     }
     impl<'a> ReportOutput<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 authorization: Err("authorization was not initialized".to_string()),
-                body: Ok(types::builder::ReportOutputBody::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn authorization<V>(mut self, value: V) -> Self
@@ -1227,17 +1205,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `ReportOutputBody` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(
-                types::builder::ReportOutputBody,
-            ) -> types::builder::ReportOutputBody,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/report/output`
@@ -1248,9 +1216,7 @@ pub mod builder {
                 body,
             } = self;
             let authorization = authorization.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::ReportOutputBody>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/report/output", client.baseurl,);
             let mut header_map = HeaderMap::with_capacity(1usize);
             header_map.append("Authorization", HeaderValue::try_from(authorization)?);
@@ -1275,14 +1241,14 @@ pub mod builder {
     pub struct ReportStart<'a> {
         client: &'a super::Client,
         authorization: Result<String, String>,
-        body: Result<types::builder::ReportStartBody, String>,
+        body: Result<types::ReportStartBody, String>,
     }
     impl<'a> ReportStart<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
                 client,
                 authorization: Err("authorization was not initialized".to_string()),
-                body: Ok(types::builder::ReportStartBody::default()),
+                body: Err("body was not initialized".to_string()),
             }
         }
         pub fn authorization<V>(mut self, value: V) -> Self
@@ -1300,15 +1266,7 @@ pub mod builder {
         {
             self.body = value
                 .try_into()
-                .map(From::from)
                 .map_err(|_| "conversion to `ReportStartBody` for body failed".to_string());
-            self
-        }
-        pub fn body_map<F>(mut self, f: F) -> Self
-        where
-            F: std::ops::FnOnce(types::builder::ReportStartBody) -> types::builder::ReportStartBody,
-        {
-            self.body = self.body.map(f);
             self
         }
         ///Sends a `POST` request to `/report/start`
@@ -1319,9 +1277,7 @@ pub mod builder {
                 body,
             } = self;
             let authorization = authorization.map_err(Error::InvalidRequest)?;
-            let body = body
-                .and_then(std::convert::TryInto::<types::ReportStartBody>::try_into)
-                .map_err(Error::InvalidRequest)?;
+            let body = body.map_err(Error::InvalidRequest)?;
             let url = format!("{}/report/start", client.baseurl,);
             let mut header_map = HeaderMap::with_capacity(1usize);
             header_map.append("Authorization", HeaderValue::try_from(authorization)?);
