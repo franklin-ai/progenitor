@@ -12,7 +12,7 @@ build = "build.rs"
 
 [dependencies]
 progenitor-client = { version = "0.2.1-dev", path = "../progenitor-client" }
-progenitor-impl = { version = "0.2.1-dev", path = "../progenitor-impl" }
+progenitor-impl = { version = "0.2.1-alpha.2", path = "../progenitor-impl" }
 progenitor-macro = { version = "0.2.1-dev", path = "../progenitor-macro" }
 anyhow = "1.0"
 openapiv3 = "1.0.0"
