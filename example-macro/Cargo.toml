@@ -1,13 +1,13 @@
 [package]
 name = "example-macro"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Adam H. Leventhal <ahl@oxidecomputer.com>"]
 edition = "2021"
 
 [dependencies]
 chrono = { version = "0.4", features = ["serde"] }
 progenitor = { path = "../progenitor" }
-reqwest = { version = "0.11.16", features = ["json", "stream"] }
+reqwest = { version = "0.12", features = ["json", "stream"] }
 schemars = { version = "0.8.12", features = ["uuid1"] }
 serde = { version = "1.0", features = ["derive"] }
 uuid = { version = "1.3", features = ["serde", "v4"] }
